@@ -1,0 +1,23 @@
+[project]
+name = "python-demos"
+version = "0.1.0"
+description = "python demos"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pre-commit>=4.0.1",
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py312"]
+skip-string-normalization = false
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.mypy]
+files = ["ml-demos", "tests"]
+ignore_missing_imports = true
+strict = true
