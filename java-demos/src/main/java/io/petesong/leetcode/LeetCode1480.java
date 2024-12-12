@@ -21,7 +21,7 @@ class LeetCode1480 {
     int[] nums = {1, 2, 3, 4};
     int[] expectedResult = {1, 3, 6, 10};
     int[] actualResult = new LeetCode1480.Solution().runningSum(nums);
-    boolean isPassed = expectedResult == actualResult;
+    boolean isPassed = Arrays.equals(expectedResult, actualResult);
     System.out.printf("Is passed: %b", isPassed);
     assert isPassed;
   }
