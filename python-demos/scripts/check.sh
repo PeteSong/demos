@@ -11,3 +11,7 @@ echo
 echo Running flake8
 flake8 $1
 echo
+
+echo Running radon
+radon cc $1
+echo

@@ -52,7 +52,7 @@ class Solution:
         return n
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     s = "MCMXCIV"
     expected_result = 1994
     r = Solution().romanToInt2(s) == expected_result
