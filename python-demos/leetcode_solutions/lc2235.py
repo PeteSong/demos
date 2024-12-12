@@ -7,7 +7,7 @@ class Solution:
         return num1 + num2
 
 
-def main():
+def main() -> None:
     num1 = 2
     num2 = 8
     expected_result = 10

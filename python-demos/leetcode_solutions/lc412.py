@@ -17,7 +17,7 @@ class Solution:
         return ans
 
 
-def main():
+def main() -> None:
     n = 15
     expected_result = [
         "1",

@@ -19,7 +19,7 @@ class Solution:
         return running_sum
 
 
-def main():
+def main() -> None:
     nums = [1, 2, 3, 4]
     expected_result = [1, 3, 6, 10]
     r = Solution().runningSum(nums) == expected_result

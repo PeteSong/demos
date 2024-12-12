@@ -14,7 +14,7 @@ class Solution:
         return max_amount
 
 
-def main():
+def main() -> None:
     accounts = [[1, 5], [7, 3], [3, 5]]
     expected_result = 10
     r = Solution().maximumWealth(accounts) == expected_result
