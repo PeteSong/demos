@@ -53,7 +53,7 @@ spotbugs {
 }
 
 pmd {
-    toolVersion="7.8.0"
+    toolVersion = "7.8.0"
 }
 
 tasks.test {
@@ -75,7 +75,6 @@ tasks.jacocoTestReport {
 
 tasks.withType<Checkstyle> {
     reports {
-//        xml.required.set(true)
         html.required.set(true)
     }
 }

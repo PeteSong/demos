@@ -11,11 +11,21 @@ class Solution:
         del running_sum[0]
         return running_sum
 
+    def runningSum2(self, nums: list[int]) -> list[int]:
+        running_sum = [nums[0]]
+        for n in nums[1:]:
+            t = running_sum[-1] + n
+            running_sum.append(t)
+        return running_sum
+
 
 def main():
     nums = [1, 2, 3, 4]
     expected_result = [1, 3, 6, 10]
     r = Solution().runningSum(nums) == expected_result
+    print(f"Is passed: {r}")
+    assert r
+    r = Solution().runningSum2(nums) == expected_result
     print(f"Is passed: {r}")
     assert r
 
