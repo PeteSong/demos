@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.petesong.leetcode.LeetCode412.Solution;
 
 /**
  * LeetCode13 test.
@@ -33,7 +34,7 @@ public class LeetCode412Test {
   @ParameterizedTest
   @MethodSource("intListProvider")
   void fizzBuzz(int n, List<String> expected) {
-    List<String> actualResult = new LeetCode412.Solution().fizzBuzz(n);
+    List<String> actualResult = new Solution().fizzBuzz(n);
     assertEquals(actualResult, expected);
   }
 

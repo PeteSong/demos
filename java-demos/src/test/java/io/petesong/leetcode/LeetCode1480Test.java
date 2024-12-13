@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+import io.petesong.leetcode.LeetCode1480.Solution;
 
 /**
  * LeetCode13 test.
@@ -26,7 +27,7 @@ public class LeetCode1480Test {
   @ParameterizedTest
   @MethodSource("intIntProvider")
   void fizzBuzz(int[] nums, int[] expected) {
-    int[] actualResult = new LeetCode1480.Solution().runningSum(nums);
+    int[] actualResult = new Solution().runningSum(nums);
     assertArrayEquals(actualResult, expected);
   }
 
