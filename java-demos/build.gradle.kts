@@ -48,7 +48,7 @@ jacoco {
 
 checkstyle {
     toolVersion = "10.20.2"
-    configFile = file("config/checkstyle/google-checks.xml")
+    configFile = file("config/checkstyle/google_checks.xml")
     isIgnoreFailures = false
 }
 
@@ -75,7 +75,6 @@ tasks.test {
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports {
-//        xml.required.set(true)
         html.required.set(true)
     }
 }

@@ -9,20 +9,23 @@ import java.util.List;
  * https://leetcode.com/problems/fizz-buzz/
  */
 class LeetCode412 {
-  static final String FIZZBUZZ = "FizzBuzz";
   static final String FIZZ = "Fizz";
   static final String BUZZ = "Buzz";
+  static final String FIZZBUZZ = FIZZ + BUZZ;
+  static final int FIVE = 5;
+  static final int THREE = 3;
 
   static class Solution {
     public List<String> fizzBuzz(int n) {
       List<String> ans = new ArrayList<>();
       int i = 1;
       while (i <= n) {
-        if (i % 3 == 0 && i % 5 == 0) {
+        String s = "";
+        if (i % THREE == 0 && i % FIVE == 0) {
           ans.add(FIZZBUZZ);
-        } else if (i % 3 == 0) {
+        } else if (i % THREE == 0) {
           ans.add(FIZZ);
-        } else if (i % 5 == 0) {
+        } else if (i % FIVE == 0) {
           ans.add(BUZZ);
         } else {
           ans.add(String.valueOf(i));
@@ -45,4 +48,3 @@ class LeetCode412 {
     assert isPassed;
   }
 }
-
