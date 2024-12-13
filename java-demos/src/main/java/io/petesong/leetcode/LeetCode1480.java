@@ -17,7 +17,7 @@ class LeetCode1480 {
     }
 
     public int[] runningSum(int[] nums) {
-      if (!validArg(nums)){
+      if (!validArg(nums)) {
         return new int[0];
       }
       int[] runningS = Arrays.copyOf(nums, nums.length);

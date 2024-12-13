@@ -3,7 +3,7 @@
 
 
 class Solution:
-    def valid_arg(self, nums):
+    def valid_arg(self, nums: list[int]) -> bool:
         if nums is None or (not isinstance(nums, list)) or len(nums) == 0:
             return False
         return True
@@ -28,7 +28,7 @@ class Solution:
         return running_sum
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     nums = [1, 2, 3, 4]
     expected_result = [1, 3, 6, 10]
     r = Solution().runningSum(nums) == expected_result

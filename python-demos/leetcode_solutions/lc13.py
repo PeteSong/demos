@@ -4,7 +4,7 @@ import re
 
 
 class Solution:
-    def valid_arg(self, s):
+    def valid_arg(self, s: str) -> bool:
         if s is None or (not isinstance(s, str)) or len(s) == 0:
             return False
         re_pattern = r"^[IVXLCDM]+$"

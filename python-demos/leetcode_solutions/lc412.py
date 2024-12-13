@@ -7,7 +7,7 @@ class Solution:
     BUZZ: str = "Buzz"
     FIZZBUZZ: str = FIZZ + BUZZ
 
-    def valid_arg(self, n):
+    def valid_arg(self, n: int) -> bool:
         if n is None or (not isinstance(n, int)) or n <= 0:
             return False
         return True
@@ -28,7 +28,7 @@ class Solution:
         return ans
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     n = 15
     expected_result = [
         "1",
