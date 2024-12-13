@@ -31,3 +31,10 @@ after then, we can use wrapper `./gradlew` to build project
 ./gradlew build 
 ./gradlew runClass -PclassName=io.petesong.leetcode.LeetCode2235
 ```
+
+## Check
+
+```shell
+./gradlew check
+```
+Then you can see the reports after checking in the folder `./build/reports`

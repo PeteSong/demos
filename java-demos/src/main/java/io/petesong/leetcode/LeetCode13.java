@@ -1,6 +1,7 @@
 package io.petesong.leetcode;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 412. Fizz Buzz
@@ -22,11 +23,25 @@ class LeetCode13 {
       Map.entry("CM", 900),
       Map.entry("M", 1000)
   );
+  static final String ROMAN_PATTERN = "^[IVXLCDM]+$";
   static final int TWO = 2;
   static final int ONE = 1;
 
   static class Solution {
+    boolean validArg(String s) {
+      if (Objects.isNull(s) || s.length() == 0) {
+        return false;
+      }
+      if (!s.matches(ROMAN_PATTERN)) {
+        return false;
+      }
+      return true;
+    }
+
     public int romanToInt(String s) {
+      if (!validArg(s)) {
+        return 0;
+      }
       int n = 0;
       int right = s.length();
       while (right > 0) {
@@ -42,6 +57,7 @@ class LeetCode13 {
     }
   }
 
+  @lombok.Generated
   public static void main(String[] args) {
     String s = "MCMXCIV";
     int expectedResult = 1994;

@@ -1,9 +1,20 @@
 # 13. Roman to Integer
 # https://leetcode.com/problems/roman-to-integer/description/
+import re
 
 
 class Solution:
+    def valid_arg(self, s):
+        if s is None or (not isinstance(s, str)) or len(s) == 0:
+            return False
+        re_pattern = r"^[IVXLCDM]+$"
+        if not re.match(re_pattern, s):
+            return False
+        return True
+
     def romanToInt(self, s: str) -> int:
+        if not self.valid_arg(s):
+            return 0
         symbols = {
             "I": 1,
             "V": 5,
@@ -25,6 +36,8 @@ class Solution:
         return n
 
     def romanToInt2(self, s: str) -> int:
+        if not self.valid_arg(s):
+            return 0
         symbols = {
             "I": 1,
             "IV": 4,
