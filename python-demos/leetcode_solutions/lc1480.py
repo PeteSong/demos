@@ -3,7 +3,14 @@
 
 
 class Solution:
+    def valid_arg(self, nums):
+        if nums is None or (not isinstance(nums, list)) or len(nums) == 0:
+            return False
+        return True
+
     def runningSum(self, nums: list[int]) -> list[int]:
+        if not self.valid_arg(nums):
+            return []
         running_sum = [0]
         for n in nums:
             t = running_sum[-1] + n
@@ -12,6 +19,8 @@ class Solution:
         return running_sum
 
     def runningSum2(self, nums: list[int]) -> list[int]:
+        if not self.valid_arg(nums):
+            return []
         running_sum = [nums[0]]
         for n in nums[1:]:
             t = running_sum[-1] + n

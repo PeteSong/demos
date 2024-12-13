@@ -1,6 +1,7 @@
 package io.petesong.leetcode;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * 1480. Running Sum of 1d Array
@@ -8,7 +9,17 @@ import java.util.Arrays;
  */
 class LeetCode1480 {
   static class Solution {
+    boolean validArg(int[] nums) {
+      if (Objects.isNull(nums) || nums.length == 0) {
+        return false;
+      }
+      return true;
+    }
+
     public int[] runningSum(int[] nums) {
+      if (!validArg(nums)){
+        return new int[0];
+      }
       int[] runningS = Arrays.copyOf(nums, nums.length);
       for (int i = 1; i < nums.length; i++) {
         runningS[i] = runningS[i] + runningS[i - 1];
@@ -26,4 +37,3 @@ class LeetCode1480 {
     assert isPassed;
   }
 }
-
