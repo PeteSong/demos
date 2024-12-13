@@ -37,6 +37,9 @@ uv init python-demos
 Add a dependency
 
 ```shell
+uv add pytest
+uv add pytest-cov
+
 uv add pre-commit
 ```
 
@@ -59,6 +62,10 @@ repos:
   rev: 7.1.1
   hooks:
   - id: flake8
+    args: [
+      "--ignore=E203,W503,E266",
+      --max-line-length=120
+    ]
 ```
 
 Then install the git hooks.
@@ -69,7 +76,7 @@ uv run pre-commit install
 
 now when you run `git commit`, it will run those tools automatically.
 
-## run a file
+## Run a file
 
 ```shell
 cd python-demos
@@ -77,5 +84,9 @@ cd python-demos
 # check a file
 source ./scripts/check.sh ./leetcode_solutions/lc2235.py
 
+# run a file
 uv run ./leetcode_solutions/lc2235.py
+
+# run pytest
+uv run pytest ./tests/test_leetcode_solutions/test_lc13.py
 ```
