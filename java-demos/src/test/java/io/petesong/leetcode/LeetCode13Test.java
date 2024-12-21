@@ -26,7 +26,7 @@ public class LeetCode13Test {
   @MethodSource("stringIntProvider")
   void romanToInt(String s, int expected) {
     int actualResult = new Solution().romanToInt(s);
-    Assertions.assertEquals(actualResult, expected);
+    Assertions.assertEquals(expected, actualResult);
   }
 
 }

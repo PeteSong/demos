@@ -27,7 +27,7 @@ public class LeetCode1672Test {
   @MethodSource("intIntProvider")
   void fizzBuzz(int[][] accounts, int expected) {
     int actualResult = new Solution().maximumWealth(accounts);
-    assertEquals(actualResult, expected);
+    assertEquals(expected, actualResult);
   }
 
 }

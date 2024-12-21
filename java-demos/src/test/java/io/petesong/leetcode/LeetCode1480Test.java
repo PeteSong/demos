@@ -28,7 +28,7 @@ public class LeetCode1480Test {
   @MethodSource("intIntProvider")
   void fizzBuzz(int[] nums, int[] expected) {
     int[] actualResult = new Solution().runningSum(nums);
-    assertArrayEquals(actualResult, expected);
+    assertArrayEquals(expected, actualResult);
   }
 
 }

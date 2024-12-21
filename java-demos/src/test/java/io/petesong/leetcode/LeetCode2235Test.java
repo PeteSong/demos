@@ -27,7 +27,7 @@ public class LeetCode2235Test {
   @MethodSource("intIntIntProvider")
   void fizzBuzz(int num1, int num2, int expected) {
     int actualResult = new Solution().sum(num1, num2);
-    assertEquals(actualResult, expected);
+    assertEquals(expected, actualResult);
   }
 
 }

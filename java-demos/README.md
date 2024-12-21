@@ -28,11 +28,11 @@ after then, we can use wrapper `./gradlew` to build project
 ## Run a file
 
 ```shell
-./gradlew build 
+./gradlew build
 ./gradlew runClass -PclassName=io.petesong.leetcode.LeetCode2235
 ```
 
-## Check
+## Check before commit
 
 ```shell
 ./gradlew check

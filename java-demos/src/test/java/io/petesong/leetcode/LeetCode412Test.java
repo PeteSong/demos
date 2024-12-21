@@ -35,7 +35,7 @@ public class LeetCode412Test {
   @MethodSource("intListProvider")
   void fizzBuzz(int n, List<String> expected) {
     List<String> actualResult = new Solution().fizzBuzz(n);
-    assertEquals(actualResult, expected);
+    assertEquals(expected, actualResult);
   }
 
 }
