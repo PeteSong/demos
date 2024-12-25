@@ -35,10 +35,11 @@ exclude_also = [
 ]
 
 [tool.pytest.ini_options]
-pythonpath = "leetcode_solutions python_demos"
+pythonpath = "algorithms_learning leetcode_solutions python_demos"
 minversion = "8.0"
 addopts = """
 -ra
+--cov=algorithms_learning
 --cov=leetcode_solutions
 --cov=python_demos
 --cov-report=html
