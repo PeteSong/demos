@@ -28,7 +28,9 @@ after then, we can use wrapper `./gradlew` to build project
 ## Run a file
 
 ```shell
+./gradlew clean
 ./gradlew build
+
 ./gradlew runClass -PclassName=io.petesong.leetcode.LeetCode2235
 ```
 

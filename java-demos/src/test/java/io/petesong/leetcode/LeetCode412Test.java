@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import io.petesong.leetcode.LeetCode412.Solution;
 
 /**
- * LeetCode13 test.
+ * LeetCode412 test.
  */
 public class LeetCode412Test {
   static Stream<Arguments> intListProvider() {

@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * LeetCode13 test.
+ * LeetCode2235 test.
  */
 public class LeetCode2235Test {
   static Stream<Arguments> intIntIntProvider() {

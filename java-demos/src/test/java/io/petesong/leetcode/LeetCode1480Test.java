@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import io.petesong.leetcode.LeetCode1480.Solution;
 
 /**
- * LeetCode13 test.
+ * LeetCode1480 test.
  */
 public class LeetCode1480Test {
   static Stream<Arguments> intIntProvider() {
