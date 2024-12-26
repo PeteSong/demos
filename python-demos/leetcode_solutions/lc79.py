@@ -34,12 +34,12 @@ class Solution:
             # print(m, n, index, word[index])
             temp, board[m][n] = board[m][n], "#"
             adjacent_cells = [
-                (m + 1, n, index + 1),
-                (m - 1, n, index + 1),
-                (m, n + 1, index + 1),
-                (m, n - 1, index + 1),
+                (m + 1, n),
+                (m - 1, n),
+                (m, n + 1),
+                (m, n - 1),
             ]
-            found = any([dfs(*cell) for cell in adjacent_cells])
+            found = any([dfs(*cell, index + 1) for cell in adjacent_cells])
             board[m][n] = temp
             return found
 
