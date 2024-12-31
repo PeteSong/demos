@@ -11,6 +11,9 @@ class LeetCode2235 {
     }
   }
 
+
+  // use the annotation below to 'no cover'
+  @lombok.Generated
   public static void main(String[] args) {
     int num1 = 3;
     int num2 = 7;
@@ -21,4 +24,3 @@ class LeetCode2235 {
     assert isPassed;
   }
 }
-

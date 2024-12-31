@@ -21,18 +21,35 @@ public class LeetCode79Test {
         Arguments.arguments(new char[][]{{}}, "", false),
         Arguments.arguments(new char[][]{{}, {}, {}, {}, {}, {}, {}}, "", false),
         Arguments.arguments(new char[][]{{'a', 'a', 'a', 'a', 'a', 'a', 'a'}, {}, {}, {}, {}, {}, {}}, "", false),
-        Arguments.arguments(new char[][]{{'a', 'a', 'a', }, {}, {}}, null, false),
-        Arguments.arguments(new char[][]{{'a', 'a', 'a', }, {}, {}}, " ", false),
-        Arguments.arguments(new char[][]{{'a', 'a', 'a', }, {}, {}}, "", false),
-        Arguments.arguments(new char[][]{{'a', 'a', 'a', }, {}, {}}, "abcdefghijklmno", false),
-        Arguments.arguments(new char[][]{{'a', 'a', 'a', }, {}, {}}, "abcdefghij", false),
+        Arguments.arguments(new char[][]{{'a', 'a', 'a'}, {}, {}}, null, false),
+        Arguments.arguments(new char[][]{{'a', 'a', 'a'}, {}, {}}, " ", false),
+        Arguments.arguments(new char[][]{{'a', 'a', 'a'}, {}, {}}, "", false),
+        Arguments.arguments(new char[][]{{'a', 'a', 'a'}, {}, {}}, "abcdefghijklmno", false),
+        Arguments.arguments(new char[][]{{'a', 'a', 'a'}, {}, {}}, "abcdefghij", false),
 
         // regular cases
-        Arguments.arguments(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "ABCCED", true),
-        Arguments.arguments(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "SEE", true),
+        Arguments.arguments(
+            new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}},
+            "ABCCED",
+            true
+        ),
+        Arguments.arguments(
+            new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}},
+            "SEE",
+            true
+        ),
         // Not found it.
-        Arguments.arguments(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "ABCB", false),
-        Arguments.arguments(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "ABCZ", false)
+        Arguments.arguments(
+            new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}},
+            "ABCB",
+            false
+        ),
+        Arguments.arguments(
+            new char[][]{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}},
+            "ABCZ",
+            false
+        )
+
     );
   }
 

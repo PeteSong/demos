@@ -1,5 +1,5 @@
-import com.github.spotbugs.snom.Effort
 import com.github.spotbugs.snom.Confidence
+import com.github.spotbugs.snom.Effort
 import com.github.spotbugs.snom.SpotBugsTask
 
 plugins {
@@ -79,6 +79,23 @@ tasks.jacocoTestReport {
     }
 }
 
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = 0.90.toBigDecimal()
+            }
+            limit {
+                counter = "BRANCH"
+                value = "COVEREDRATIO"
+                minimum = 0.90.toBigDecimal()
+            }
+        }
+    }
+}
+
 tasks.withType<Checkstyle> {
     reports {
         html.required.set(true)
@@ -91,6 +108,10 @@ tasks.withType<SpotBugsTask> {
         outputLocation = file(layout.buildDirectory.dir("reports/spotbugs.html"))
         setStylesheet("fancy-hist.xsl")
     }
+}
+
+tasks.check {
+    dependsOn(tasks.jacocoTestCoverageVerification)
 }
 
 application {

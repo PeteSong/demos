@@ -48,7 +48,7 @@ class LeetCode79 {
       ) {
         return false;
       }
-//      System.out.printf("%d, %d, %d, %c%n", m, n, index, board[m][n]);
+      //System.out.printf("%d, %d, %d, %c%n", m, n, index, board[m][n]);
       var temp = board[m][n];
       board[m][n] = '#';
       int[][] adjacentCells = {
@@ -88,7 +88,7 @@ class LeetCode79 {
       if (!boardSet.containsAll(wordSet)) {
         return false;
       }
-      if (boardCounter.get(wordCharArray[0]) > boardCounter.get(wordCharArray[word.length()-1])) {
+      if (boardCounter.get(wordCharArray[0]) > boardCounter.get(wordCharArray[word.length() - 1])) {
         this.word = new StringBuffer(word)
             .reverse()
             .toString();

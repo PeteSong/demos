@@ -36,6 +36,8 @@ class LeetCode412 {
     }
   }
 
+  // use the annotation below to 'no cover'
+  @lombok.Generated
   public static void main(String[] args) {
     int n = 15;
     String[] expectedR = {"1", "2", FIZZ, "4", BUZZ,

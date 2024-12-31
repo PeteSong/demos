@@ -33,6 +33,9 @@ class LeetCode1672 {
     }
   }
 
+
+  // use the annotation below to 'no cover'
+  @lombok.Generated
   public static void main(String[] args) {
     int[][] accounts = {{1, 5}, {7, 3}, {3, 5}};
     int expectedResult = 10;

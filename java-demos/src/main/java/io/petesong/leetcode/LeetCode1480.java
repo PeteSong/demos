@@ -28,6 +28,9 @@ class LeetCode1480 {
     }
   }
 
+
+  // use the annotation below to 'no cover'
+  @lombok.Generated
   public static void main(String[] args) {
     int[] nums = {1, 2, 3, 4};
     int[] expectedResult = {1, 3, 6, 10};
