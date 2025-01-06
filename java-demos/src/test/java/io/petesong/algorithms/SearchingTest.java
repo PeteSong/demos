@@ -31,7 +31,7 @@ public class SearchingTest {
 
   @ParameterizedTest
   @MethodSource("intArrayIntIntProvider")
-  void binarySearch(int[] a, int key, int expected) {
+  void shouldReturnExpectedResultWhenBinarySearchWithTwoParameters(int[] a, int key, int expected) {
     int actualResult = Searching.binarySearch(a, key);
     Assertions.assertEquals(expected, actualResult);
   }
@@ -56,7 +56,9 @@ public class SearchingTest {
 
   @ParameterizedTest
   @MethodSource("intArrayIntIntIntIntProvider")
-  void binarySearch(int[] a, int key, int left, int right, int expected) {
+  void shouldReturnExpectedResultWhenBinarySearchWithFourParameters(
+      int[] a, int key, int left, int right, int expected
+  ) {
     int actualResult = Searching.binarySearch(a, key, left, right);
     Assertions.assertEquals(expected, actualResult);
   }
