@@ -1,0 +1,62 @@
+import pytest
+
+import algorithms_learning.binary_tree as bs
+
+test_data_edge_1 = [
+    (None, None),
+    (None, []),
+]
+test_data_edge_2 = [
+    ([4, 2, None], [4, 2, None, None, None, None, None, None]),
+]
+test_data_normal = [
+    ([4], [4]),
+    ([4, 2, None], [4, 2, None]),
+    ([4, None, 6], [4, None, 6]),
+    ([4, 4, 6], [4, 4, 6]),
+    ([4, 2, 6, 1, 3, 5, 7], [4, 2, 6, 1, 3, 5, 7]),
+    ([4, 2, 6, 1, None, 5, None], [4, 2, 6, 1, None, 5, None]),
+    ([4, 2, 6, None, 3, None, 7], [4, 2, 6, None, 3, None, 7]),
+    ([4, 2, 6, 1, None, None, None], [4, 2, 6, 1, None, None, None]),
+    ([4, 2, 6, None, 3, None, None], [4, 2, 6, None, 3, None, None]),
+    ([4, 2, 6, None, None, 5, None], [4, 2, 6, None, None, 5, None]),
+    ([4, 2, 6, None, None, None, 7], [4, 2, 6, None, None, None, 7]),
+]
+
+
+@pytest.mark.parametrize("expected, a", test_data_normal)
+def test_binary_tree(expected, a: list):
+    root = bs.array_to_tree(a)
+    bs.print_tree(root)
+    result = bs.tree_to_array(root)
+    print(result)
+    # assert a1 == a
+    assert bs.same_arrays(expected, result)
+
+
+@pytest.mark.parametrize("expected, a", test_data_edge_1)
+def test_array_to_tree_edge_cases_1(expected, a: list):
+    r = bs.array_to_tree(a)
+    assert expected == r
+
+
+@pytest.mark.parametrize("expected, a", test_data_edge_2)
+def test_array_to_tree_edge_cases_2(expected, a: list):
+    r = bs.tree_to_array(bs.array_to_tree(a))
+    assert bs.same_arrays(expected, r)
+
+
+def test_tree_to_array():
+    r = bs.tree_to_array(None)
+    assert r is None
+
+
+def test_same_arrays():
+    r = bs.same_arrays(None, [])
+    assert not r
+    r = bs.same_arrays([], None)
+    assert not r
+    r = bs.same_arrays([], [])
+    assert r
+    r = bs.same_arrays(None, None)
+    assert r
