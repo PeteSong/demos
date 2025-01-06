@@ -17,13 +17,14 @@ class TreeNode:
         self.right = right
 
 
-def print_tree(node: Optional[TreeNode], space: int = 0, ident: int = 4) -> None:
+def print_tree(node: Optional[TreeNode], space: int = 0, indent: int = 4) -> None:
+    space += indent
     if node is None:
         print(f'{" " * space}#')
         return
-    print_tree(node.right, space + ident)
+    print_tree(node.right, space)
     print(f'{" " * space}{node.val}')
-    print_tree(node.left, space + ident)
+    print_tree(node.left, space)
 
 
 def array_to_tree(a: Optional[list[int]]) -> Optional[TreeNode]:
@@ -33,11 +34,10 @@ def array_to_tree(a: Optional[list[int]]) -> Optional[TreeNode]:
       node do not exist, leave a position in the array and fill it with None.
     """
 
-    def get_child_node(v: Optional[int]) -> Optional[TreeNode]:
+    def get_node(v: Optional[int]) -> Optional[TreeNode]:
         if v is None:
             return None
-        else:
-            return TreeNode(val=v)
+        return TreeNode(val=v)
 
     if a is None or (a_len := len(a)) == 0:
         return None
@@ -48,13 +48,13 @@ def array_to_tree(a: Optional[list[int]]) -> Optional[TreeNode]:
         node = q.pop(0)
         if node is None:
             continue
-        child_node = get_child_node(a[i])
+        child_node = get_node(a[i])
         node.left = child_node
         q.append(child_node)
 
         i += 1
         if i < a_len:
-            child_node = get_child_node(a[i])
+            child_node = get_node(a[i])
             node.right = child_node
             q.append(child_node)
             i += 1
@@ -77,7 +77,7 @@ def tree_to_array(root: Optional[TreeNode]) -> Optional[list[Optional[int]]]:
     return v_q
 
 
-def same_arrays(a1: list[Any], a2: list[Any]) -> bool:
+def arrays_equal(a1: list[Any], a2: list[Any]) -> bool:
     if a1 == a2:
         return True
     if a1 is None or a2 is None:
@@ -92,9 +92,13 @@ def same_arrays(a1: list[Any], a2: list[Any]) -> bool:
 
 
 def main() -> None:  # pragma: no cover
-    # a = [4, 2, 6, 1, 3, 5, 7]
+    a = [4, 2, 6, 1, 3, 5, 7]
     # a = [4, 2, 6, 1, None, 5, None]
-    a = [4, 2, None, None, None, None]
+    # a = [4, 2, None, None, None, None]
     root = array_to_tree(a)
     print_tree(root)
     print(tree_to_array(root))
+
+
+if __name__ == "__main__":
+    main()

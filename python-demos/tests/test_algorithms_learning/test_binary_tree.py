@@ -31,7 +31,7 @@ def test_binary_tree(expected, a: list):
     result = bs.tree_to_array(root)
     print(result)
     # assert a1 == a
-    assert bs.same_arrays(expected, result)
+    assert bs.arrays_equal(expected, result)
 
 
 @pytest.mark.parametrize("expected, a", test_data_edge_1)
@@ -43,7 +43,7 @@ def test_array_to_tree_edge_cases_1(expected, a: list):
 @pytest.mark.parametrize("expected, a", test_data_edge_2)
 def test_array_to_tree_edge_cases_2(expected, a: list):
     r = bs.tree_to_array(bs.array_to_tree(a))
-    assert bs.same_arrays(expected, r)
+    assert bs.arrays_equal(expected, r)
 
 
 def test_tree_to_array():
@@ -52,11 +52,11 @@ def test_tree_to_array():
 
 
 def test_same_arrays():
-    r = bs.same_arrays(None, [])
+    r = bs.arrays_equal(None, [])
     assert not r
-    r = bs.same_arrays([], None)
+    r = bs.arrays_equal([], None)
     assert not r
-    r = bs.same_arrays([], [])
+    r = bs.arrays_equal([], [])
     assert r
-    r = bs.same_arrays(None, None)
+    r = bs.arrays_equal(None, None)
     assert r
