@@ -4,6 +4,7 @@ import com.github.spotbugs.snom.SpotBugsTask
 
 plugins {
     id("java")
+    id("io.freefair.lombok") version "8.11"
 
     id("application")
     id("jacoco")
@@ -31,15 +32,11 @@ tasks.withType<JavaCompile> {
 }
 
 dependencies {
+    implementation("io.freefair.lombok:io.freefair.lombok.gradle.plugin:8.11")
+
     testImplementation(platform("org.junit:junit-bom:5.11.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    compileOnly("org.projectlombok:lombok:1.18.36")
-    annotationProcessor("org.projectlombok:lombok:1.18.36")
-
-    testCompileOnly("org.projectlombok:lombok:1.18.36")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.36")
 }
 
 jacoco {
