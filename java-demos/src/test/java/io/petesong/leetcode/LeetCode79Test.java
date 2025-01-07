@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 /**
- * LeetCode33 test.
+ * LeetCode79 test.
  */
 public class LeetCode79Test {
   static Stream<Arguments> charArrayStringBooleanProvider() {

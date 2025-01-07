@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 /**
- * LeetCode33 test.
+ * LeetCode80 test.
  */
 public class LeetCode80Test {
   static Stream<Arguments> intArrayIntProvider() {
