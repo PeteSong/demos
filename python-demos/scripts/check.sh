@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
 echo Running black
-black --check $1
+uvx black --check $1
 echo
 
 echo Running isort
-isort --check-only $1
+uvx isort --check-only $1
 echo
 
 echo Running flake8
-flake8 $1
+uvx flake8 $1
 echo
 
 echo Running mypy
-mypy $1
+uvx mypy $1
 echo
 
 echo Running radon
-radon cc $1
+uvx radon cc $1
 echo
