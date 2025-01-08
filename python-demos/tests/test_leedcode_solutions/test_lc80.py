@@ -2,7 +2,7 @@ import copy
 
 import pytest
 
-from leetcode_solutions.lc80 import Solution
+from leetcode.lc80 import Solution
 
 
 class TestSolution:

@@ -1,7 +1,7 @@
 import pytest
 
 from algorithms_learning.binary_tree import array_to_tree
-from leetcode_solutions.lc101 import Solution
+from leetcode.lc101 import Solution
 
 
 class TestSolution:

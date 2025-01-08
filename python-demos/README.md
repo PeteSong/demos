@@ -82,10 +82,10 @@ now when you run `git commit`, it will run those tools automatically.
 cd python-demos
 
 # check a file
-source ./scripts/check.sh ./leetcode_solutions/lc2235.py
+source ./scripts/check.sh ./leetcode/lc2235.py
 
 # run a file
-uv run ./leetcode_solutions/lc2235.py
+uv run ./leetcode/lc2235.py
 
 # run pytest
 uv run pytest

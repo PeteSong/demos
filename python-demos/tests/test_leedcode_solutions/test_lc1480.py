@@ -1,6 +1,6 @@
 import pytest
 
-from leetcode_solutions.lc1480 import Solution
+from leetcode.lc1480 import Solution
 
 
 class TestSolution:
