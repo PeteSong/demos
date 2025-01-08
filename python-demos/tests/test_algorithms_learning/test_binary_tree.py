@@ -44,6 +44,8 @@ def test_array_to_tree_edge_cases_1(expected, a: list):
 def test_array_to_tree_edge_cases_2(expected, a: list):
     r = bs.tree_to_array(bs.array_to_tree(a))
     assert bs.arrays_equal(expected, r)
+    r = bs.tree_to_array(bs.array_to_tree(a), True)
+    assert bs.arrays_equal(expected, r)
 
 
 def test_tree_to_array():
@@ -60,3 +62,22 @@ def test_same_arrays():
     assert r
     r = bs.arrays_equal(None, None)
     assert r
+
+
+test_symmetric_tree_data = [
+    # edge cases
+    (True, None),
+    (True, []),
+    # regular cases
+    (True, [1, 2, 2, 3, 4, 4, 3]),
+    (False, [1, 2, 1, 3, 4, 4, 3]),
+    (False, [1, 2, 2, None, 3, None, 3]),
+]
+
+
+@pytest.mark.parametrize("expected, a", test_symmetric_tree_data)
+def test_symmetric_tree(expected, a: list):
+    actual_result = bs.symmetric_tree(bs.array_to_tree(a))
+    assert expected == actual_result
+    actual_result = bs.symmetric_tree2(bs.array_to_tree(a))
+    assert expected == actual_result

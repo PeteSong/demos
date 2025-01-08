@@ -27,6 +27,42 @@ def print_tree(node: Optional[TreeNode], space: int = 0, indent: int = 4) -> Non
     print_tree(node.left, space)
 
 
+def symmetric_tree2(root: Optional[TreeNode]) -> bool:
+    if root is None:
+        return True
+    q = [root.left, root.right]
+    while q:
+        t1 = q.pop()
+        t2 = q.pop()
+        if t1 is None and t2 is None:
+            continue
+        if t1 is None or t2 is None:
+            return False
+        if t1.val != t2.val:
+            return False
+        q.append(t1.left)
+        q.append(t2.right)
+        q.append(t1.right)
+        q.append(t2.left)
+    return True
+
+
+def symmetric_tree(root: Optional[TreeNode]) -> bool:
+    if root is None:
+        return True
+    return symmetric_nodes(root.left, root.right)
+
+
+def symmetric_nodes(node1: Optional[TreeNode], node2: Optional[TreeNode]) -> bool:
+    if node1 is None and node2 is None:
+        return True
+    if node1 is None or node2 is None:
+        return False
+    if node1.val != node2.val:
+        return False
+    return symmetric_nodes(node1.left, node2.right) and symmetric_nodes(node1.right, node2.left)
+
+
 def array_to_tree(a: Optional[list[int]]) -> Optional[TreeNode]:
     """
     General Binary Tree Representation:
@@ -61,7 +97,7 @@ def array_to_tree(a: Optional[list[int]]) -> Optional[TreeNode]:
     return root
 
 
-def tree_to_array(root: Optional[TreeNode]) -> Optional[list[Optional[int]]]:
+def tree_to_array(root: Optional[TreeNode], should_strip_trailing_nones: bool = False) -> Optional[list[Optional[int]]]:
     if root is None:
         return None
     q: list[Optional[TreeNode]] = [root]
@@ -74,6 +110,9 @@ def tree_to_array(root: Optional[TreeNode]) -> Optional[list[Optional[int]]]:
             q.append(node.right)
         else:
             v_q.append(None)
+    if should_strip_trailing_nones:
+        while v_q and v_q[-1] is None:
+            v_q.pop()
     return v_q
 
 

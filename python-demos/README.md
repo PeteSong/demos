@@ -88,5 +88,8 @@ source ./scripts/check.sh ./leetcode_solutions/lc2235.py
 uv run ./leetcode_solutions/lc2235.py
 
 # run pytest
+uv run pytest
+
+# run pytest on one file
 uv run pytest ./tests/test_leetcode_solutions/test_lc13.py
 ```
