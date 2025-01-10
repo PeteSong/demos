@@ -15,6 +15,7 @@ IPV4_PATTERN = (
     r"(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\."
     r"(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])"
 )
+IPV6_PATTERN = r"([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}"
 
 # IPV4_PATTERN_2 = (r"(\d){1,3}\."
 #                  r"(\d){1,3}\."
@@ -39,6 +40,10 @@ def valid_ipv4(ip: str) -> bool:
     return valid_pattern(IPV4_PATTERN, ip)
 
 
+def valid_ipv6(ip: str) -> bool:
+    return valid_pattern(IPV6_PATTERN, ip)
+
+
 def valid_email(email: str) -> bool:
     return valid_pattern(EMAIL_PATTERN, email)
 
@@ -47,7 +52,7 @@ def search_ipv4(s: str) -> str:
     return search_pattern(IPV4_PATTERN, s)
 
 
-def main():  # pragma: no cover
+def main() -> None:  # pragma: no cover
     test_ips = [
         "192.168.1.1",  # 有效
         "255.255.255.255",  # 有效

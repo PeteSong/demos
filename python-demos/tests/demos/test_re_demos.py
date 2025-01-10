@@ -2,7 +2,7 @@ import pytest
 
 import demos.re_demos as reds
 
-test_ips = [
+test_ips_ipv4 = [
     (True, "192.168.1.1"),
     (True, "255.255.255.255"),
     (True, "0.0.0.0"),
@@ -12,10 +12,23 @@ test_ips = [
     (False, "192.168.abc.1"),
 ]
 
+test_ips_ipv6 = [
+    (True, "2001:0db8:85a3:0000:0000:8a2e:0370:7334"),
+    (False, "2001:db8:85a3::8a2e:370:7334"),
+    (False, "1200::AB00:1234::2552:7777:1313"),
+    (False, "1200:0000:AB00:1234:O000:2552:7777:1313"),
+]
 
-@pytest.mark.parametrize("expected, ip", test_ips)
+
+@pytest.mark.parametrize("expected, ip", test_ips_ipv4)
 def test_valid_ipv4(expected, ip):
     actual_result = reds.valid_ipv4(ip)
+    assert expected == actual_result
+
+
+@pytest.mark.parametrize("expected, ip", test_ips_ipv6)
+def test_valid_ipv6(expected, ip):
+    actual_result = reds.valid_ipv6(ip)
     assert expected == actual_result
 
 
