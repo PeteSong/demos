@@ -7,4 +7,4 @@ disable =
 max-line-length = 120
 
 [MASTER]
-init-hook='import sys; sys.path.append("./python_demos")'
+init-hook='import sys; sys.path.append("./demos")'

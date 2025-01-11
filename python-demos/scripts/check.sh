@@ -12,6 +12,10 @@ echo Running flake8
 uvx flake8 $1
 echo
 
+echo Running pylint
+uvx pylint $1
+echo
+
 echo Running mypy
 uvx mypy $1
 echo
