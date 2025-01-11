@@ -6,8 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pre-commit>=4.0.1",
-    "pytest-cov>=6.0.0",
     "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
 ]
 
 [tool.black]
@@ -31,9 +31,9 @@ branch = true
 show_missing = true
 skip_covered = false
 exclude_also = [
-    "if __name__ == \"__main__\":",
     "if __name__ == .__main__.:",
     "def main() -> None:",
+    "def main().{0,8}:",
 ]
 
 [tool.pytest.ini_options]
