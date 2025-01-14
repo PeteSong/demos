@@ -1,6 +1,6 @@
 import pytest
 
-from algorithms_learning.search import binary_search
+from algorithms_learning.arrays import binary_search
 
 test_data = [
     # edge cases
