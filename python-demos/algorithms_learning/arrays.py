@@ -36,8 +36,10 @@ def binary_search(nums: list[int], target: int, left: int = 0, right: int = None
 def reverse(nums: list[int], p1: int = 0, p2: int = 0) -> None:
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) <= 1:
         return
-    if p2 is None or p2 == 0:
-        p2 = nums_len
+    if p1 <= 0:
+        p1 = 0
+    if p2 is None or p2 <= 0 or p2 > nums_len - 1:
+        p2 = nums_len - 1
     while p1 < p2:
         nums[p1], nums[p2] = nums[p2], nums[p1]
         p1 += 1
