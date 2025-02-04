@@ -29,3 +29,15 @@ def test_fsplit_and_fmerge():
     fds.fsplit("./data/pg26184_1.txt", 400, "data.txt")
     fds.fmerge(["./data.txt_0", "./data.txt_1", "./data.txt_2", "./data.txt_3"], "data.txt_merged")
     assert filecmp.cmp("./data/pg26184_1.txt", "data.txt_merged") is True
+
+
+@pytest.mark.parametrize("file_path", invalid_file_paths)
+def test_fmd5_with_invalid_file(file_path):
+    with pytest.raises(ValueError):
+        fds.fmd5(file_path)
+
+
+def test_fmd5():
+    expected_md5 = "e8834a096fd0321ec195899959eb163f"
+    actual_md5 = fds.fmd5("./data/pg26184.txt")
+    assert actual_md5 == expected_md5

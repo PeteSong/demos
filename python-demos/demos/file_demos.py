@@ -6,8 +6,11 @@ Date: 2025-01-11
 Version: 0.0.1
 """
 
+import hashlib
 import io
 import os
+from collections.abc import Callable
+from functools import partial
 from pathlib import Path
 from typing import Optional
 
@@ -62,10 +65,29 @@ def fmerge(src_file_paths: list[str], target_file_path: str = "target_merged_fil
     print(f"{target_file_path} created.")
 
 
+def fhash(src_file_path: str, hash_func: Callable) -> str:
+    src_file_path = os.path.expanduser(src_file_path)
+    if not os.path.isfile(src_file_path):
+        raise ValueError(f"File not found or not a regular file: {src_file_path}")
+    CHUNK_SIZE_OF_BYTES = 4096
+    with open(src_file_path, "rb") as src_file:
+        h = hash_func()
+        for chunk in iter(partial(src_file.read, CHUNK_SIZE_OF_BYTES), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def fmd5(src_file_path: str) -> str:
+    hexdigest = fhash(src_file_path, hashlib.md5)
+    print(f"MD5({src_file_path}) = {hexdigest}")
+    return hexdigest
+
+
 def main() -> None:  # pragma: no cover
     fsplit("./data/pg26184.txt", 500)
     fmerge(["./pg26184.txt_0", "./pg26184.txt_1", "./pg26184.txt_2", "./pg26184.txt_3"], "pg26184.txt_merged")
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    print(fmd5("./data/pg26184.txt"))
