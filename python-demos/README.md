@@ -34,13 +34,20 @@ Created a new project.
 uv init python-demos
 ```
 
-Add a dependency
+Add dependencies
 
 ```shell
 uv add pytest
 uv add pytest-cov
 
 uv add pre-commit
+```
+
+Add dependencies only for dev
+
+```shell
+uv add --dev ipython
+uv add --dev jupyter
 ```
 
 Configure the `pre-commit` with tools

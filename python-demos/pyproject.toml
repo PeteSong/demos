@@ -20,7 +20,7 @@ profile = "black"
 line_length = 120
 
 [tool.mypy]
-files = ["demos", "leetcode", "tests"]
+files = ["algorithms_learning", "demos", "design_patterns", "leetcode", "tests"]
 ignore_missing_imports = true
 strict = true
 
@@ -37,16 +37,23 @@ exclude_also = [
 ]
 
 [tool.pytest.ini_options]
-pythonpath = "algorithms_learning leetcode demos"
+pythonpath = "algorithms_learning demos design_patterns leetcode"
 minversion = "8.0"
 addopts = """
 -ra
 --cov=algorithms_learning
---cov=leetcode
 --cov=demos
+--cov=design_patterns
+--cov=leetcode
 --cov-report=html
 --cov-report=term
 """
 testpaths = [
     "tests",
+]
+
+[dependency-groups]
+dev = [
+    "ipython>=8.32.0",
+    "jupyter>=1.1.1",
 ]
