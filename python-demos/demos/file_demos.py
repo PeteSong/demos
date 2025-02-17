@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Optional
 
 
-def fsplit(src_file_path: str, line_num: int = 1000, target_file_prefix: Optional[str] = None) -> None:
+def fsplit_by_line_number(src_file_path: str, line_num: int = 1000, target_file_prefix: Optional[str] = None) -> None:
     """split file by line number"""
 
     def _write_split_file() -> None:
@@ -49,7 +49,7 @@ def fsplit(src_file_path: str, line_num: int = 1000, target_file_prefix: Optiona
             _write_split_file()
 
 
-def fsplit2(src_file_path: str, size: int = 1024 * 1024, target_file_prefix: Optional[str] = None) -> None:
+def fsplit_by_byte_size(src_file_path: str, size: int = 1024 * 1024, target_file_prefix: Optional[str] = None) -> None:
     """split file by size(bytes)"""
     src_file_path = os.path.expanduser(src_file_path)
     if not os.path.isfile(src_file_path):
@@ -102,11 +102,11 @@ def fmd5(src_file_path: str) -> str:
 
 
 def main() -> None:  # pragma: no cover
-    fsplit("./data/pg26184.txt", 500)
+    fsplit_by_line_number("./data/pg26184.txt", 500)
     fmerge(["./pg26184.txt_0", "./pg26184.txt_1", "./pg26184.txt_2", "./pg26184.txt_3"], "pg26184.txt_merged")
     print(fmd5("./data/pg26184.txt"), fmd5("pg26184.txt_merged"))
 
-    fsplit2("./data/pg26184.txt", 1024 * 20)
+    fsplit_by_byte_size("./data/pg26184.txt", 1024 * 20)
     fmerge(["./pg26184.txt_b0", "./pg26184.txt_b1", "./pg26184.txt_b2", "./pg26184.txt_b3"], "pg26184.txt_bmerged")
     print(fmd5("./data/pg26184.txt"), fmd5("pg26184.txt_bmerged"))
 
