@@ -8,8 +8,10 @@ def is_prime(n: int) -> bool:
         return False
     if n <= 3:
         return True
-    k = int(math.sqrt(n)) + 1
-    for x in range(2, k):
+    if n % 2 == 0:
+        return False
+    k = int(math.floor(math.sqrt(n))) + 1
+    for x in range(3, k, 2):
         if n % x == 0:
             return False
     return True
