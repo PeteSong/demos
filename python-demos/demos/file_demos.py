@@ -101,6 +101,55 @@ def fmd5(src_file_path: str) -> str:
     return hexdigest
 
 
+def fls(file_path: str) -> None:
+    def _get_flag(_p: Path) -> str:
+        if _p.is_symlink():
+            return f"@ -> {_p.readlink()}"
+        if _p.is_dir():
+            return "/"
+        return ""
+
+    p = Path(file_path).expanduser()
+    if not p.exists():
+        print(f"File not found: {file_path}")
+        return
+
+    if p.is_file():
+        print(f"{file_path} {_get_flag(p)}")
+        return
+
+    if p.is_dir():
+        print(f"Files under {file_path}: \n")
+        for child in p.iterdir():
+            print(f"{child.name} {_get_flag(child)}")
+        return
+
+
+def fappend(file_path: str, content: str) -> None:
+    with open(file_path, "a") as f:
+        f.write(content)
+
+
+def fappend2(file_path: str, content: str) -> None:
+    with open(file_path, "r+") as f:
+        f.seek(0, os.SEEK_END)
+        f.write(content)
+
+
+def fmerge_lines(in_file_path: str, out_file_path, sep=",", end=".") -> None:
+    """merge the lines with sep from in-file, write to out-file"""
+    ifile_path = Path(in_file_path).expanduser()
+    if not ifile_path.exists():
+        raise ValueError(f"File not found or not a regular file: {in_file_path}")
+    with open(ifile_path, "rb") as ifile:
+        with open(out_file_path, "wb") as ofile:
+            for line in ifile:
+                ofile.write(line.strip(b"\n"))
+                ofile.write(sep.encode())
+            ofile.seek(-1, os.SEEK_CUR)
+            ofile.write(end.encode())
+
+
 def main() -> None:  # pragma: no cover
     fsplit_by_line_number("./data/pg26184.txt", 500)
     fmerge(["./pg26184.txt_0", "./pg26184.txt_1", "./pg26184.txt_2", "./pg26184.txt_3"], "pg26184.txt_merged")
@@ -112,4 +161,8 @@ def main() -> None:  # pragma: no cover
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    # fls('~')
+
+    # fappend('../data/test_text.txt', 'hello world')
+    fmerge_lines("../data/test_text.txt", "../data/out_test_text.txt")

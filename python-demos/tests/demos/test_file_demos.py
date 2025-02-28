@@ -82,3 +82,50 @@ def test_fmd5():
     expected_md5 = "e8834a096fd0321ec195899959eb163f"
     actual_md5 = fds.fmd5("./data/pg26184.txt")
     assert actual_md5 == expected_md5
+
+
+def test_fls(tmp_path, capfd):
+    d = tmp_path
+    fds.fls(d / "not_exist.txt")
+    captured = capfd.readouterr()
+    assert "File not found" in captured.out
+
+    f = d / "test.txt"
+    f.touch()
+    fds.fls(f)
+    captured = capfd.readouterr()
+    assert "test.txt" in captured.out
+
+    f2 = d / "link_to_test"
+    f2.symlink_to(f)
+    fds.fls(f2)
+    captured = capfd.readouterr()
+    assert "link_to_test @ ->" in captured.out
+
+    d1 = d / "dir1"
+    d1.mkdir()
+    fds.fls(d)
+    captured = capfd.readouterr()
+    assert "Files under" in captured.out
+    assert "test.txt" in captured.out
+    assert "link_to_test @ ->" in captured.out
+
+
+def test_fappend(tmp_path):
+    f = tmp_path / "test.txt"
+    f.write_text("hello")
+    fds.fappend(f, " world")
+    assert f.read_text() == "hello world"
+
+    fds.fappend2(f, " again")
+    assert f.read_text() == "hello world again"
+
+
+def test_fmerge_lines(tmp_path):
+    f = tmp_path / "test.txt"
+    with pytest.raises(ValueError):
+        fds.fmerge_lines(f, f.with_suffix(".merged"))
+    f.write_text("hello\nworld\n")
+    fds.fmerge_lines(f, f.with_suffix(".merged"))
+    assert f.read_text() == "hello\nworld\n"
+    assert f.with_suffix(".merged").read_text() == "hello,world."
