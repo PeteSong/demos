@@ -257,3 +257,6 @@ data/**/raw/
 .settings/
 .classpath
 .project
+
+# Visual code
+.vscode/
