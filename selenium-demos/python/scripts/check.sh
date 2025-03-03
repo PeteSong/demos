@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#
+# use this script to check python files
+#
 
 echo ==== Running isort
 uvx isort --check-only $1
