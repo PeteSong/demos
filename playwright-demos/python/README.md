@@ -35,3 +35,13 @@ uv run pytest path/to/test.py
 # then check the file
 ./scripts/check.sh path/to/file.py
 ```
+
+----
+
+Added a "Behavior Driven Development" demo for the "Playwright + Python(uv) + Behave" in the "features" directory.
+
+1. Run the "Behavior Driven Development" tests
+
+```
+uv run behave
+```
