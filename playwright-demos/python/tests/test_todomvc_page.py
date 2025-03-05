@@ -30,11 +30,11 @@ class TestTodoMvcPage:
         expect(todomvc.todo_items).to_have_count(1)
         todomvc.expect_count_todo_left(1)
 
-        todomvc.todo_item_set_checked(todo_str)
+        todomvc.set_todo_item_checked(todo_str)
         todomvc.expect_count_todo_left(0)
         expect(todomvc.todo_items).to_have_count(1)
 
-        todomvc.todo_item_set_checked(todo_str, False)
+        todomvc.set_todo_item_checked(todo_str, False)
         todomvc.expect_count_todo_left(1)
         expect(todomvc.todo_items).to_have_count(1)
 
@@ -46,11 +46,11 @@ class TestTodoMvcPage:
         expect(todomvc.todo_items).to_have_count(2)
         todomvc.expect_count_todo_left(2)
 
-        todomvc.todo_item_delete(s1)
+        todomvc.delete_todo_item(s1)
         expect(todomvc.todo_items).to_have_count(1)
         todomvc.expect_count_todo_left(1)
 
-        todomvc.todo_item_delete(s2)
+        todomvc.delete_todo_item(s2)
         expect(todomvc.todo_items).to_have_count(0)
         todomvc.expect_count_todo_left(0)
         expect(todomvc.footor).to_be_hidden()
@@ -73,11 +73,13 @@ class TestTodoMvcPage:
         expect(todomvc.todo_items).to_have_count(n)
         todomvc.expect_count_todo_left(n)
 
-        todomvc.toggle_all_button.click(force=True)
+        # set all todo items checked
+        todomvc.toggle_all_todo_items()
         expect(todomvc.todo_items).to_have_count(n)
         todomvc.expect_count_todo_left(0)
 
-        todomvc.toggle_all_button.click(force=True)
+        # set all todo items unchecked
+        todomvc.toggle_all_todo_items()
         expect(todomvc.todo_items).to_have_count(n)
         todomvc.expect_count_todo_left(n)
 
@@ -89,12 +91,12 @@ class TestTodoMvcPage:
         todomvc.expect_count_todo_left(20)
 
         for i in range(15):
-            todomvc.todo_item_set_checked(f"todo {i}s")
+            todomvc.set_todo_item_checked(f"todo {i}s")
 
         expect(todomvc.todo_items).to_have_count(20)
         todomvc.expect_count_todo_left(5)
 
-        todomvc.clear_completed_button.click()
+        todomvc.clear_completed_todo_items()
         expect(todomvc.todo_items).to_have_count(5)
         todomvc.expect_count_todo_left(5)
 
@@ -104,10 +106,10 @@ class TestTodoMvcPage:
         for i in range(n1):
             todomvc.new_todo(f"todo {i}s")
 
-        todomvc.view_all_link.click()
+        todomvc.filter_all()
 
         for i in range(n2):
-            todomvc.todo_item_set_checked(f"todo {i}s")
+            todomvc.set_todo_item_checked(f"todo {i}s")
 
         expect(todomvc.todo_items).to_have_count(n1)
         expect(todomvc.completed_todo_items).to_have_count(n2)
@@ -115,17 +117,17 @@ class TestTodoMvcPage:
         todomvc.expect_count_todo_left(n1 - n2)
         expect(todomvc.visible_todo_items).to_have_count(n1)
 
-        todomvc.view_active_link.click()
+        todomvc.filter_active()
         expect(todomvc.todo_items).to_have_count(n1)
         todomvc.expect_count_todo_left(n1 - n2)
         expect(todomvc.visible_todo_items).to_have_count(n1 - n2)
 
-        todomvc.view_completed_link.click()
+        todomvc.filter_completed()
         expect(todomvc.todo_items).to_have_count(n1)
         todomvc.expect_count_todo_left(n1 - n2)
         expect(todomvc.visible_todo_items).to_have_count(n2)
 
-        todomvc.view_all_link.click()
+        todomvc.filter_all()
         expect(todomvc.todo_items).to_have_count(n1)
         expect(todomvc.completed_todo_items).to_have_count(n2)
         expect(todomvc.active_todo_items).to_have_count(n1 - n2)

@@ -16,9 +16,9 @@ class TodoMvcPage:
         self.completed_todo_items = self.page.locator('ul.todo-list > todo-item[item-completed="true"]')
         self.visible_todo_items = self.page.locator('ul.todo-list > todo-item[style="display: block;"]')
 
-        self.view_all_link = self.page.get_by_role("link", name="All")
-        self.view_active_link = self.page.get_by_role("link", name="Active")
-        self.view_completed_link = self.page.get_by_role("link", name="Completed")
+        self.filter_all_link = self.page.get_by_role("link", name="All")
+        self.filter_active_link = self.page.get_by_role("link", name="Active")
+        self.filter_completed_link = self.page.get_by_role("link", name="Completed")
 
         self.toggle_all_button = self.page.locator("input.toggle-all-input")
         self.clear_completed_button = self.page.locator("button#clear-completed")
@@ -36,10 +36,10 @@ class TodoMvcPage:
     def todo_item_locator(self, s: str):
         return self.todo_items.filter(has_text=s)
 
-    def todo_item_set_checked(self, s: str, checked: bool = True):
+    def set_todo_item_checked(self, s: str, checked: bool = True):
         return self.todo_item_locator(s).get_by_role("checkbox").set_checked(checked)
 
-    def todo_item_delete(self, s: str) -> None:
+    def delete_todo_item(self, s: str) -> None:
         todoitem = self.todo_item_locator(s)
         todoitem.hover()
         todoitem.get_by_role("button").click()
@@ -48,6 +48,21 @@ class TodoMvcPage:
         self.new_todo_input.fill(todo_text)
         self.new_todo_input.press("Enter")
 
+    def toggle_all_todo_items(self) -> None:
+        self.toggle_all_button.click(force=True)
+
+    def clear_completed_todo_items(self) -> None:
+        self.clear_completed_button.click()
+
     def expect_count_todo_left(self, count) -> None:
         count_todo_left = self.build_count_todo_left(count)
         expect(self.count_todo_left_label).to_have_text(count_todo_left)
+
+    def filter_all(self):
+        self.filter_all_link.click()
+
+    def filter_completed(self):
+        self.filter_completed_link.click()
+
+    def filter_active(self):
+        self.filter_active_link.click()

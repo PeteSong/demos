@@ -14,6 +14,12 @@ cd demos/playwright-demos/python
 uv run pytest
 ```
 
+Or run the tests in parallel
+
+```
+uv run pytest -n auto
+```
+
 3. Run a specific test
 
 ```
