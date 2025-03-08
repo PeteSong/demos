@@ -57,11 +57,11 @@ class TestTodoMvcPage:
         assert page.count_todo_items_left() == page.build_count_todo_left(10)
         assert page.todo_count() == 10
 
-        page.toggle_all_todos()
+        page.toggle_all_todo_items()
         assert page.count_todo_items_left() == page.build_count_todo_left(0)
         assert page.todo_count() == 10
 
-        page.toggle_all_todos()
+        page.toggle_all_todo_items()
         assert page.count_todo_items_left() == page.build_count_todo_left(10)
         assert page.todo_count() == 10
 
@@ -78,7 +78,7 @@ class TestTodoMvcPage:
         assert page.count_todo_items_left() == page.build_count_todo_left(5)
         assert page.todo_count() == 10
 
-        page.clear_completed_todos()
+        page.clear_completed_todo_items()
         assert page.count_todo_items_left() == page.build_count_todo_left(5)
         assert page.todo_count() == 5
 
@@ -90,14 +90,14 @@ class TestTodoMvcPage:
             s = f"ToDo{i}"
             page.toggle_todo(s)
 
-        page.view_all_todos()
+        page.filter_all()
         assert page.count_todo_items_left() == page.build_count_todo_left(6)
         assert page.todo_count() == 10
 
-        page.view_active_todos()
+        page.filter_active()
         assert page.count_todo_items_left() == page.build_count_todo_left(6)
         assert page.todo_count() == 6
 
-        page.view_completed_todos()
+        page.filter_completed()
         assert page.count_todo_items_left() == page.build_count_todo_left(6)
         assert page.todo_count() == 4

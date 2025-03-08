@@ -10,6 +10,7 @@ class TodoMvcPage(LoadableComponent):
     url = "https://todomvc.com/examples/react/dist/"
 
     new_todo_by = (By.CSS_SELECTOR, "input.new-todo")
+    footer_by = (By.CSS_SELECTOR, "footer.footer")
     count_todo_left_by = (By.CSS_SELECTOR, "span.todo-count")
     todo_items_by = (By.CSS_SELECTOR, "ul.todo-list>li")
 
@@ -66,11 +67,25 @@ class TodoMvcPage(LoadableComponent):
     def count_todo_items_left(self) -> str:
         return self.bot.text(self.count_todo_left_by)
 
+    def todo_items(self) -> list:
+        return self.bot.elements_located(self.todo_items_by)
+
     def todo_count(self) -> int:
-        return len(self.bot.elements(self.todo_items_by))
+        return len(self.bot.elements_located(self.todo_items_by))
 
     def new_todo(self, s: str):
         self.bot.type(self.new_todo_by, s + "\n")
+
+    def todo_item(self, s: str):
+        return self.bot.element_located(self.build_todo_by(s))
+
+    def todo_item_checkbox(self, s: str):
+        element = self.todo_item(s)
+        todo_item_checkbox = self.bot.element_located_in_element(
+            element, (By.CSS_SELECTOR, 'input[data-testid="todo-item-toggle"]')
+        )
+        return todo_item_checkbox
+        # return self.bot.element_located(self.build_todo_item_toggle_by(s))
 
     def toggle_todo(self, s: str):
         self.bot.click(self.build_todo_item_toggle_by(s))
@@ -82,17 +97,17 @@ class TodoMvcPage(LoadableComponent):
         self.hover_todo(s)
         self.bot.click(self.build_todo_item_delete_by(s))
 
-    def clear_completed_todos(self):
+    def clear_completed_todo_items(self):
         self.bot.click(self.clear_completed_by)
 
-    def toggle_all_todos(self):
+    def toggle_all_todo_items(self):
         self.bot.click(self.toggle_all_by)
 
-    def view_all_todos(self):
+    def filter_all(self):
         self.bot.click(self.view_all_by)
 
-    def view_active_todos(self):
+    def filter_active(self):
         self.bot.click(self.view_active_by)
 
-    def view_completed_todos(self):
+    def filter_completed(self):
         self.bot.click(self.view_completed_by)
