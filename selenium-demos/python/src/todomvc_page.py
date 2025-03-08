@@ -82,17 +82,17 @@ class TodoMvcPage(LoadableComponent):
         self.hover_todo(s)
         self.bot.click(self.build_todo_item_delete_by(s))
 
-    def clear_completed_todo(self):
+    def clear_completed_todos(self):
         self.bot.click(self.clear_completed_by)
 
-    def toggle_all_todo(self):
+    def toggle_all_todos(self):
         self.bot.click(self.toggle_all_by)
 
-    def view_all_todo(self):
+    def view_all_todos(self):
         self.bot.click(self.view_all_by)
 
-    def view_active_todo(self):
+    def view_active_todos(self):
         self.bot.click(self.view_active_by)
 
-    def view_completed_todo(self):
+    def view_completed_todos(self):
         self.bot.click(self.view_completed_by)

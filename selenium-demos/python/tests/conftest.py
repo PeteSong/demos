@@ -1,5 +1,6 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 
 @pytest.fixture(scope="function")
@@ -21,7 +22,9 @@ def driver(request):
 
 @pytest.fixture(scope="function")
 def chrome_driver():
-    with webdriver.Chrome() as driver:
+    options = Options()
+    options.add_argument("--headless")
+    with webdriver.Chrome(options=options) as driver:
         driver.set_window_size(1024, 768)
         driver.implicitly_wait(0.5)
         yield driver

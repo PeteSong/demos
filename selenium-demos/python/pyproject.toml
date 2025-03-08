@@ -4,7 +4,12 @@ version = "0.1.0"
 description = "Selenium-Python demos"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["pytest>=8.3.5", "selenium>=4.29.0"]
+dependencies = [
+    "behave>=1.2.6",
+    "pytest>=8.3.5",
+    "selenium>=4.29.0",
+    "webdriver-manager>=4.0.2",
+]
 
 [tool.black]
 line-length = 120
