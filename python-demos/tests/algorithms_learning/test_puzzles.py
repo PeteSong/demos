@@ -1,6 +1,12 @@
 import pytest
 
-from algorithms_learning.puzzles import fibonacci, fibonacci_generator, fibonacci_in_recursion, fibonacci_list
+from algorithms_learning.puzzles import (
+    fibonacci,
+    fibonacci_generator,
+    fibonacci_in_recursion,
+    fibonacci_list,
+    sqrt_by_newton_method,
+)
 
 
 @pytest.mark.parametrize("n, expected", [(1, 1), (2, 1), (3, 2), (4, 3), (5, 5)])
@@ -56,3 +62,14 @@ def test_fibonacci_list_negative():
         next(fibonacci_generator(-1))
     with pytest.raises(ValueError):
         next(fibonacci_generator(0))
+
+
+def test_sqrt_by_newton_method():
+    assert sqrt_by_newton_method(0) == 0
+    assert sqrt_by_newton_method(4) == 2.0
+    assert sqrt_by_newton_method(9) == 3.0
+
+
+def test_sqrt_by_newton_method_negative():
+    with pytest.raises(ValueError):
+        sqrt_by_newton_method(-1)

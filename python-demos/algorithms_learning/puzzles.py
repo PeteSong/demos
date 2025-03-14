@@ -64,6 +64,19 @@ def fibonacci_list(n):
     return fib_list[1:]
 
 
+@trace
+@functools.lru_cache
+def sqrt_by_newton_method(x):
+    if x < 0:
+        raise ValueError("Can not compute squre root of a negative number")
+    if x == 0:
+        return 0
+    z = x / 2
+    for _ in range(10):
+        z -= (z * z - x) / (2 * z)
+    return z
+
+
 def main() -> None:  # pragma: no cover
     # print(fibonacci(0))
     # print(fibonacci(1))
@@ -80,6 +93,11 @@ def main() -> None:  # pragma: no cover
     print(list(fibonacci_generator(5)))
     # for i, v in enumerate(fibonacci_generator(5)):
     # print(f'{i}: {v}', end=' ')
+    print(f"{sqrt_by_newton_method(2)=}")
+    print(f"{sqrt_by_newton_method(3)=}")
+    print(f"{sqrt_by_newton_method(4)=}")
+    print(f"{sqrt_by_newton_method(10)=}")
+    print(f"{sqrt_by_newton_method(16)=}")
 
 
 if __name__ == "__main__":
