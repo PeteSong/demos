@@ -105,3 +105,8 @@ def test_insertion_sort(expected, nums):
 @pytest.mark.parametrize("expected, nums", copy.deepcopy(test_sort_data))
 def test_selection_sort(expected, nums):
     assert expected == arrays.selection_sort(nums)
+
+
+@pytest.mark.parametrize("expected, nums", copy.deepcopy(test_sort_data))
+def test_quick_sort(expected, nums):
+    assert expected == arrays.quick_sort(nums)

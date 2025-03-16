@@ -65,6 +65,7 @@ def bubble_sort(nums: list[int]) -> list[int]:
 
 def insertion_sort(nums: list[int]) -> list[int]:
     """
+    Insert the element into its correct position in the sorted portion.
     将元素插入到已排序部分的正确位置。
     """
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
@@ -81,6 +82,7 @@ def insertion_sort(nums: list[int]) -> list[int]:
 
 def selection_sort(nums: list[int]) -> list[int]:
     """
+    Find the smallest element from the unsorted portion each time and place it at the end of the sorted portion.
     每次从未排序部分找到最小的元素，放到已排序部分的末尾。
     """
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
@@ -92,3 +94,21 @@ def selection_sort(nums: list[int]) -> list[int]:
                 min_idx = j
         nums[min_idx], nums[i] = nums[i], nums[min_idx]
     return nums
+
+
+def quick_sort(nums: list[int]) -> list[int]:
+    """
+    Choose a pivot element and divide the array into two parts:
+    elements smaller than the pivot go on the left,
+    and elements larger than the pivot go on the right.
+    选择一个基准元素，将数组分成两部分，小于基准的在左，大于基准的在右。
+    """
+    if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
+        return nums
+    if (nums_len := len(nums)) <= 1:
+        return nums
+    pivot = nums[nums_len // 2]
+    left = [n for n in nums if n < pivot]
+    middle = [n for n in nums if n == pivot]
+    right = [n for n in nums if n > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
