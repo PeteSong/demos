@@ -161,11 +161,38 @@ def test_fappend(tmp_path):
     assert f.read_text() == "hello world again"
 
 
-def test_fmerge_lines(tmp_path):
+def test_fjoin_lines(tmp_path):
     f = tmp_path / "test.txt"
+
     with pytest.raises(ValueError):
-        fds.fmerge_lines(f, f.with_suffix(".merged"))
+        fds.fjoin_lines(f, f.with_suffix(".merged"))
+
     f.write_text("hello\nworld\n")
-    fds.fmerge_lines(f, f.with_suffix(".merged"))
+    fds.fjoin_lines(f, f.with_suffix(".merged"))
     assert f.read_text() == "hello\nworld\n"
     assert f.with_suffix(".merged").read_text() == "hello,world."
+
+
+def test_fgrep_1(tmp_path, capfd):
+    f = tmp_path / "test.txt"
+
+    with pytest.raises(ValueError):
+        fds.fgrep(f, "world")
+
+    f.write_text("hello\nworld\n")
+
+    fds.fgrep(f, "world")
+    s1 = capfd.readouterr().out
+    assert ("world" in s1) and ("2" in s1)
+
+    fds.fgrep(f, "world", False)
+    s2 = capfd.readouterr().out
+    assert "world\n" == s2
+
+    fds.fgrep(f, "hello")
+    s3 = capfd.readouterr().out
+    assert ("hello" in s3) and ("1" in s3)
+
+    fds.fgrep(f, "hello", False)
+    s4 = capfd.readouterr().out
+    assert "hello\n" == s4

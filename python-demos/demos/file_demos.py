@@ -15,6 +15,14 @@ from pathlib import Path
 from typing import Optional
 
 
+def _resolve_file_path(file_path: str) -> Path:
+    p = Path(file_path).expanduser().resolve()
+    return p
+    # file_path = os.path.expanduser(file_path)
+    # file_path = os.path.realpath(file_path)
+    # return file_path
+
+
 def fsplit_by_line_number(src_file_path: str, line_num: int = 1000, target_file_prefix: Optional[str] = None) -> None:
     """split file by line number"""
 
@@ -26,7 +34,7 @@ def fsplit_by_line_number(src_file_path: str, line_num: int = 1000, target_file_
         print(f"{target_file_path} created.")
         lines.close()
 
-    src_file_path = os.path.expanduser(src_file_path)
+    src_file_path = _resolve_file_path(src_file_path)
     if not os.path.isfile(src_file_path):
         raise ValueError(f"File not found or not a regular file: {src_file_path}")
     if target_file_prefix is None:
@@ -51,7 +59,7 @@ def fsplit_by_line_number(src_file_path: str, line_num: int = 1000, target_file_
 
 def fsplit_by_byte_size(src_file_path: str, size: int = 1024 * 1024, target_file_prefix: Optional[str] = None) -> None:
     """split file by size(bytes)"""
-    src_file_path = os.path.expanduser(src_file_path)
+    src_file_path = _resolve_file_path(src_file_path)
     if not os.path.isfile(src_file_path):
         raise ValueError(f"File not found or not a regular file: {src_file_path}")
     if target_file_prefix is None:
@@ -84,7 +92,7 @@ def fmerge(src_file_paths: list[str], target_file_path: str = "target_merged_fil
 
 
 def fhash(src_file_path: str, hash_func: Callable) -> str:
-    src_file_path = os.path.expanduser(src_file_path)
+    src_file_path = _resolve_file_path(src_file_path)
     if not os.path.isfile(src_file_path):
         raise ValueError(f"File not found or not a regular file: {src_file_path}")
     CHUNK_SIZE_OF_BYTES = 4096
@@ -136,8 +144,8 @@ def fappend2(file_path: str, content: str) -> None:
         f.write(content)
 
 
-def fmerge_lines(in_file_path: str, out_file_path, sep=",", end=".") -> None:
-    """merge the lines with sep from in-file, write to out-file"""
+def fjoin_lines(in_file_path: str, out_file_path, sep=",", end=".") -> None:
+    """join the lines with sep from in-file, write to out-file"""
     ifile_path = Path(in_file_path).expanduser()
     if not ifile_path.exists():
         raise ValueError(f"File not found or not a regular file: {in_file_path}")
@@ -148,6 +156,23 @@ def fmerge_lines(in_file_path: str, out_file_path, sep=",", end=".") -> None:
                 ofile.write(sep.encode())
             ofile.seek(-1, os.SEEK_CUR)
             ofile.write(end.encode())
+
+
+def fgrep(file_path: str, target: str, displaying_line_number: bool = True):
+    file_path = _resolve_file_path(file_path)
+    if not os.path.isfile(file_path):
+        raise ValueError(f"File not found or not a regular file: {file_path}")
+    line_number = 0
+    with open(file_path, "r") as f:
+        for line in f:
+            line_number += 1
+            if target.casefold() in line.casefold():
+                line = line.rstrip()
+                if displaying_line_number:
+                    l1 = f"{line_number} : {line}"
+                else:
+                    l1 = line
+                print(l1)
 
 
 def main() -> None:  # pragma: no cover
@@ -165,4 +190,5 @@ if __name__ == "__main__":
     # fls('~')
 
     # fappend('../data/test_text.txt', 'hello world')
-    fmerge_lines("../data/test_text.txt", "../data/out_test_text.txt")
+    # fmerge_lines("../data/test_text.txt", "../data/out_test_text.txt")
+    fgrep("./data/pg26184.txt", "first")
