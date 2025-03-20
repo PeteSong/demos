@@ -5,11 +5,12 @@ description = "python demos"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pre-commit>=4.0.1",
-    "pytest>=8.3.4",
-    "pytest-cov>=6.0.0",
-    "pytest-xdist>=3.6.1",
+    "pre-commit>=4.2.0",
+    "requests>=2.32.3",
 ]
+
+[tool.uv]
+default-groups = ["dev", "test"]
 
 [tool.black]
 line-length = 120
@@ -57,4 +58,11 @@ testpaths = [
 dev = [
     "ipython>=8.32.0",
     "jupyter>=1.1.1",
+]
+test = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "pytest-mock>=3.14.0",
+    "pytest-xdist>=3.6.1",
+    "responses>=0.25.7",
 ]
