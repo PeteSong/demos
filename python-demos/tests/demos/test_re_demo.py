@@ -1,6 +1,6 @@
 import pytest
 
-import demos.re_demos as reds
+import demos.re_demo as reds
 
 test_ips_ipv4 = [
     (True, "192.168.1.1"),

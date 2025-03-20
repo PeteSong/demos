@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-import demos.file_demos as fds
+import demos.file_demo as fds
 
 invalid_file_paths = ["", "/not/exist/file"]
 
