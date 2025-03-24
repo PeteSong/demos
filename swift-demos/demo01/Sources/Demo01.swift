@@ -23,23 +23,31 @@ struct Demo01: ParsableCommand {
         print()
 
         demoStringsAndCharacters()
+
+        print()
+
+        demoCollectionTypes()
     }
 }
 
 // _ : ommit argument label
-func pp1(_ val: Any, _ name: String="v") {
-    let valType = type(of: val)
-//    let pVal = val is (any StringProtocol) ? "(\((val as? (any StringProtocol))?.count ?? 0)) '\(val)'" : val
-    if let pVal = val as? (any StringProtocol) {
-        print("type: \(valType) count: (\(pVal.count))  \(name)='\(pVal)'")
+func pp1<T>(_ val: T, _ name: String = "v") {
+    if let coll = val as? any Collection {
+        let valStr: String
+        if let s = coll as? any StringProtocol {
+            valStr = "'\(s)'"
+        } else {
+            valStr = "\(coll)"
+        }
+        print("type: \(type(of: val)), count: (\(coll.count)), \(name)=\(valStr)")
     } else {
-        print("type: \(valType), \(name)=\(val)")
+        print("type: \(type(of: val)), \(name)=\(val)")
     }
 }
 
 // ... : variadic parameters
 func pp3(_ variables: (Any, String)...) {
-    for (val, name) in variables{
+    for (val, name) in variables {
         pp1(val, name)
     }
 }
@@ -291,14 +299,14 @@ func demoStringsAndCharacters() {
     print()
 
     let ms1 = """
-    Hello, this multiline string is
-    in two lines
-    """
+        Hello, this multiline string is
+        in two lines
+        """
 
     let ms2 = """
-    Hello, this multiline string is \
-    in single lines
-    """
+        Hello, this multiline string is \
+        in single lines
+        """
     print(ms1)
 
     print()
@@ -310,10 +318,10 @@ func demoStringsAndCharacters() {
     // Special characters
     // `\0` , `\\`, `\t`, `\n`, `\r`, `\"` , `\'`
     let ms3 = """
-    This multiline string contains null character(\0), backslack(\\), horizontal tab(\t), line feed(\n), \
-    carriage return(\r), double quotation mark(\" or "), single quotation mark(\' or '), \
-    three double quotation marks(\""")
-    """
+        This multiline string contains null character(\0), backslack(\\), horizontal tab(\t), line feed(\n), \
+        carriage return(\r), double quotation mark(\" or "), single quotation mark(\' or '), \
+        three double quotation marks(\""")
+        """
     print(ms3)
 
     print()
@@ -321,16 +329,18 @@ func demoStringsAndCharacters() {
     // extende string delimiters
     // just print the literal string, no escaping.
     let ms4 = #"""
-    This multiline string contains null character(\0), backslack(\\), horizontal tab(\t), line feed(\n), \
-    carriage return(\r), double quotation mark(\" or "), single quotation mark(\' or '), \
-    three double quotation marks(\""")
-    """#
+        This multiline string contains null character(\0), backslack(\\), horizontal tab(\t), line feed(\n), \
+        carriage return(\r), double quotation mark(\" or "), single quotation mark(\' or '), \
+        three double quotation marks(\""")
+        """#
     print(ms4)
 
     print()
 
-    let ss1 = "unicode characters: dollar sign(\u{24}), black heart(\u{2665}), sparking heart(\u{1F496})"
-    let ss2 = #"unicode characters: dollar sign(\u{24}), black heart(\u{2665}), sparking heart(\u{1F496})"#
+    let ss1 =
+        "unicode characters: dollar sign(\u{24}), black heart(\u{2665}), sparking heart(\u{1F496})"
+    let ss2 =
+        #"unicode characters: dollar sign(\u{24}), black heart(\u{2665}), sparking heart(\u{1F496})"#
     print(ss1)
     print(ss2)
 
@@ -484,7 +494,7 @@ func demoStringsAndCharacters() {
         "Act 2 Scene 3: Outside Friar Lawrence's cell",
         "Act 2 Scene 4: A street in Verona",
         "Act 2 Scene 5: Capulet's mansion",
-        "Act 2 Scene 6: Friar Lawrence's cell"
+        "Act 2 Scene 6: Friar Lawrence's cell",
     ]
     var act1SceneCount = 0
     for scene in romeoAndJuliet {
@@ -494,7 +504,8 @@ func demoStringsAndCharacters() {
     }
     print("There are \(act1SceneCount) scenes in Act 1")
 
-    var mansionCount = 0, cellCount = 0
+    var mansionCount = 0
+    var cellCount = 0
     for scene in romeoAndJuliet {
         if scene.hasSuffix("mansion") {
             mansionCount += 1
@@ -506,4 +517,234 @@ func demoStringsAndCharacters() {
     print("\(mansionCount) mansion scenes, \(cellCount) cell scenes.")
 
     print()
+
+    let dogString = "Dog‼🐶"
+    pp1(dogString, "dogString")
+
+    for codeUnit in dogString.utf8 {
+        print("\(codeUnit)", terminator: "_")
+    }
+    print()
+    for codeUnit in dogString.utf16 {
+        print(codeUnit, terminator: "_")
+    }
+    print()
+    for scalar in dogString.unicodeScalars {
+        print("\(scalar)-\(scalar.value)", terminator: "_")
+    }
+    print()
+    for (char, scalar) in zip(dogString, dogString.unicodeScalars) {
+        print("\(char)_\(scalar)-\(scalar.value)", terminator: "_")
+    }
+    print()
+}
+
+func demoCollectionTypes() {
+    // empty array
+    let emptyStrs = [String]()
+    let emptyInts: [Int] = []
+    pp1(emptyInts, "emptyInts")
+    pp1(emptyStrs, "emptyStrs")
+    print("for `emptyInts` -> count: \(emptyInts.count), is empty: \(emptyInts.isEmpty)")
+
+    print()
+
+    // with default value
+    var fiveInts = Array(repeating: 9, count: 5)
+    let sixDoubles = Array(repeating: 0.0, count: 6)
+    let sevenStrs = Array(repeating: "hi", count: 7)
+    pp1(sixDoubles, "sixDoubles")
+    pp1(sevenStrs, "sevenStrs")
+    pp1(fiveInts, "fiveInts")
+    // append a value
+    fiveInts.append(10)
+    pp1(fiveInts, "fiveInts")
+
+    // array literal
+    let threeInts = [99, 88, 111]
+    let fourInts = [1, 2, 3, 5]
+    var moreInts = threeInts + fourInts
+    pp1(threeInts, "threeInts")
+    pp1(fourInts, "fourInts")
+
+    print()
+
+    pp1(moreInts, "moreInts")
+    // append one element
+    moreInts.append(7)
+    pp1(moreInts, "moreInts")
+    // append another array
+    moreInts += [11, 13]
+    pp1(moreInts, "moreInts")
+
+    print()
+
+    // access by subscript syntax
+    pp1(moreInts[0], "moreInts[0]")
+    pp1(moreInts[1], "moreInts[1]")
+    pp1(moreInts[2...6], "moreInts[2...6]")
+
+    print()
+
+    // set the value by subscript syntax
+    moreInts[0] = 999
+    pp1(moreInts[0], "moreInts[0]")
+    moreInts[2...6] = [11, 22, 33, 55]
+    pp1(moreInts, "moreInts")
+
+    print()
+
+    // insert a value
+    moreInts.insert(321, at: 0)
+    pp1(moreInts, "moreInts")
+
+    // remove a value
+    moreInts.remove(at: 1)
+    pp1(moreInts, "moreInts")
+    let lastVal = moreInts.removeLast()
+    pp1(lastVal, "lastVal")
+    pp1(moreInts, "moreInts")
+
+    print()
+
+    // iterate over an array
+    for n in moreInts {
+        pp1(n)
+    }
+
+    // iterate over an array with index and value
+    for (index, v) in moreInts.enumerated() {
+        print("\(index) : \(v)")
+    }
+
+    print()
+
+    // Sets
+    // empty set
+    let emptyIntSet = Set<Int>()
+    pp1(emptyIntSet, "emptyIntSet")
+    print("count: \(emptyIntSet.count), is empty: \(emptyIntSet.isEmpty)")
+
+    print()
+
+    // create set with an array literal
+    let twoStrSet: Set = ["hello", "hi"]
+    pp1(twoStrSet, "twoStrSet")
+
+    print()
+
+    var moreStrSet: Set<String> = []
+    pp1(moreStrSet, "moreStrSet")
+    moreStrSet.insert("Tom")
+    pp1(moreStrSet, "moreStrSet")
+    moreStrSet.insert("Jerry")
+    pp1(moreStrSet, "moreStrSet")
+    moreStrSet.insert("Cat")
+    pp1(moreStrSet, "moreStrSet")
+    moreStrSet.insert("Mouse")
+    pp1(moreStrSet, "moreStrSet")
+    moreStrSet.remove("Mouse")
+    pp1(moreStrSet, "moreStrSet")
+    moreStrSet.remove("Mouse")
+    pp1(moreStrSet, "moreStrSet")
+
+    print()
+
+    print("contains(\"Cat\"): \(moreStrSet.contains("Cat"))")
+
+    print()
+    // iterate over a set
+    for s in moreStrSet {
+        pp1(s)
+    }
+
+    print()
+
+    // iterator over a sorted set
+    for s in moreStrSet.sorted() {
+        pp1(s)
+    }
+
+    print()
+
+    // set operations
+    let oddDigits: Set = [1, 3, 5, 7, 9]
+    let evenDigits: Set = [0, 2, 4, 6, 8, 10]
+    let primeNumbers: Set = [2, 3, 5, 7, 11]
+
+    pp1(oddDigits, "oddDigits")
+    pp1(evenDigits, "evenDigits")
+    pp1(primeNumbers, "primeNumbers")
+
+    print()
+
+    pp1(oddDigits.union(evenDigits), "oddDigits | evenDigits")
+    pp1(oddDigits.intersection(evenDigits), "oddDigits & evenDigits")
+    pp1(oddDigits.subtracting(primeNumbers), "oddDigits - primeNumbers")
+    pp1(oddDigits.symmetricDifference(primeNumbers), "oddDigits ^ primeNumbers")
+
+    print()
+
+    let moreOddDigits: Set = Set(Array(oddDigits) + [11, 13, 15])
+    pp1(oddDigits == moreOddDigits, "(oddDigits == moreOddDigits)")
+    pp1(oddDigits.isSubset(of: moreOddDigits), "(oddDigits is in moreOddDigits)")
+    pp1(oddDigits.isStrictSubset(of: moreOddDigits), "(oddDigits is totally in moreOddDigits)")
+    pp1(oddDigits.isSuperset(of: moreOddDigits), "(oddDigits contains moreOddDigits)")
+    pp1(oddDigits.isDisjoint(with: moreOddDigits), "(oddDigits is disjoint with moreOddDigits)")
+
+    print()
+
+    // dictionaries
+    var emptyDict: [Int: String] = [:]
+    pp1(emptyDict, "emptyDict")
+    print("count: \(emptyDict.count), is empty: \(emptyDict.isEmpty)")
+
+    emptyDict[8] = "eighth"
+    pp1(emptyDict, "emptyDict")
+
+    print()
+
+    // create dictionary with literal
+    var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+    pp1(airports, "airports")
+
+    // update dictionary by key
+    airports["PEK"] = "Beijing"
+    pp1(airports, "airports")
+    airports["PEK"] = "Beijing Captical"
+    pp1(airports, "airports")
+    let oldName = airports.updateValue("Dublin airport", forKey: "DUB")
+    pp1(oldName, "oldName")
+    pp1(airports, "airports")
+
+    // remove a value
+    airports["ABC"] = "Unknown"
+    pp1(airports, "airports")
+    airports.removeValue(forKey: "ABC")
+    pp1(airports, "airports")
+
+    print()
+
+    // iterate over a dictionary
+    for (k, v) in airports {
+        print("\(k): \(v)")
+    }
+    print()
+    // iterate over keys
+    pp1(airports, "airports")
+    pp1(airports.keys)
+    pp1(airports.values)
+    print()
+    for k in airports.keys {
+        pp1(k)
+    }
+    print()
+    // iterate over values
+    for v in airports.values {
+        pp1(v)
+    }
+    print()
+
+    print()
+
 }
