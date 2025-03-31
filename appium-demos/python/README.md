@@ -32,12 +32,23 @@ Failed to capture the network traffic of MyObservatory app, so I have to decompi
    ```shell
    apktool d ~/tmp/myobservatory.apk
    ```
-4. search 'fnd' in the decompiled folder (`fnd` is from the [HKO Open data API Documentation](https://www.hko.gov.hk/tc/weatherAPI/doc/files/HKO_Open_Data_API_Documentation_tc.pdf))
+4. search `fnd` in the decompiled folder (`fnd` is from the [HKO Open data API Documentation](https://www.hko.gov.hk/tc/weatherAPI/doc/files/HKO_Open_Data_API_Documentation_tc.pdf))
    ```
    4592:    <string name="n_day_data_link_en">https://pda.weather.gov.hk/locspc/android_data/fnd_e.xml</string>
    4593:    <string name="n_day_data_link_sc">https://pda.weather.gov.hk/sc/locspc/android_data/fnd_uc.xml</string>
    4594:    <string name="n_day_data_link_tc">https://pda.weather.gov.hk/locspc/android_data/fnd_uc.xml</string>
    ```
+
+# Extract the relative humidity for the day after tomorrow through the API
+
+```shell
+uv run -m apis.my_observatory_apis
+
+# or activate the venv, then use the `python` command
+source .venv/bin/activate
+python -m apis.my_observatory_apis
+```
+
 # run test
 
 ## using `uv`
