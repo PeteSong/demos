@@ -1,0 +1,32 @@
+[project]
+name = "python"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "appium-python-client>=5.0.0",
+    "behave>=1.2.6",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
+    "pytest-html>=4.1.1",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.3",
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py312"]
+skip-string-normalization = false
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.bandit]
+exclude_dirs = ["tests", "path/to/file"]
+tests = ["B201", "B301"]
+skips = ["B101", "B601"]
+
+[tool.pytest.ini_options]
+addopts = "--html=report.html --self-contained-html"
