@@ -23,11 +23,11 @@ def test_binary_search(expected, nums, target):
 
 
 test_data2 = [
-    # regular cases
-    (0, [1, 2, 3], 1, 0, 2),
     # edge cases
     (-1, [1, 2, 3], 1, 1, 2),
     (-1, [1, 2, 3], 1, 1, 1),
+    # regular cases
+    (0, [1, 2, 3], 1, 0, 2),
 ]
 
 
@@ -110,3 +110,46 @@ def test_selection_sort(expected, nums):
 @pytest.mark.parametrize("expected, nums", copy.deepcopy(test_sort_data))
 def test_quick_sort(expected, nums):
     assert expected == arrays.quick_sort(nums)
+
+
+test_nested_list_invalid = [
+    # edge cases
+    (None),
+    (dict()),
+    (set()),
+    ([dict()]),
+    ([set()]),
+    ([None]),
+]
+
+test_nested_list = [
+    # expected, input
+    ([3], 3),
+    (["a"], "a"),
+    ([5.5], 5.5),
+    ([True], True),
+    ([False], False),
+    ([], []),
+    ([1, 2, 3], [1, 2, 3]),
+    ([1, "2", 3.3, False], [1, "2", 3.3, False]),
+    ([1, True, 2, 3.3, "4", 5], [1, [True, 2], 3.3, ["4", 5]]),
+    ([1, True, 1, 3.3, "4", 3.3], [1, [True, 1], 3.3, ["4", 3.3]]),
+    ([1, 2, 3, 4, False, 5, True, 5.5, 6], [1, 2, 3, [[4, False], [5, True, 5.5]], [6]]),
+]
+
+
+@pytest.mark.parametrize("intput", test_nested_list_invalid)
+def test_flatten_invalid(intput):
+    with pytest.raises(ValueError):
+        arrays.flatten_list_recurision(intput)
+    with pytest.raises(ValueError):
+        arrays.flatten_list(intput)
+    with pytest.raises(ValueError):
+        next(arrays.flatten_list_generator(input))
+
+
+@pytest.mark.parametrize("expected, input", test_nested_list)
+def test_flatten(expected, input):
+    assert expected == arrays.flatten_list_recurision(input)
+    assert expected == arrays.flatten_list(input)
+    assert expected == list(arrays.flatten_list_generator(input))

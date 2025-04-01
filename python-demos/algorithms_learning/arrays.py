@@ -14,6 +14,9 @@ Changes:
   rename from "search.py" to "arrays.py"
 """
 
+from collections import deque
+from collections.abc import Generator
+
 
 def binary_search(nums: list[int], target: int, left: int = 0, right: int = None) -> int:
     """Binary search on sorted list"""
@@ -112,3 +115,68 @@ def quick_sort(nums: list[int]) -> list[int]:
     middle = [n for n in nums if n == pivot]
     right = [n for n in nums if n > pivot]
     return quick_sort(left) + middle + quick_sort(right)
+
+
+NLE_TYPES = (int, float, str, bool)
+NLE = int | float | str | bool
+NestedList = NLE | list["NestedList"]
+
+
+def _is_valid_nested_list(_nums: NestedList) -> bool:
+    if isinstance(_nums, NLE_TYPES):
+        return True
+    if isinstance(_nums, list):
+        return all(_is_valid_nested_list(_n) for _n in _nums)
+    return False
+
+
+def flatten_list_recurision(nums: NestedList) -> list[NLE]:
+    if not _is_valid_nested_list(nums):
+        raise ValueError("Input should be a valid nested list")
+
+    if not isinstance(nums, list):
+        return [nums]
+
+    result = []
+    for n in nums:
+        result.extend(flatten_list_recurision(n))
+    return result
+
+
+def flatten_list_generator(nums: NestedList) -> Generator[NLE, None, None]:
+    if not _is_valid_nested_list(nums):
+        raise ValueError("Input should be a valid nested list")
+
+    if not isinstance(nums, list):
+        yield nums
+        return
+
+    for n in nums:
+        yield from flatten_list_generator(n)
+
+
+def flatten_list(nums: NestedList) -> list[NLE]:
+    if not _is_valid_nested_list(nums):
+        raise ValueError("Input should be a valid nested list")
+
+    if not isinstance(nums, list):
+        return [nums]
+
+    result = []
+    stack = deque(nums)
+    # stack.append(nums)
+    while stack:
+        elem = stack.popleft()
+        if not isinstance(elem, list):
+            result.append(elem)
+        else:
+            stack.extendleft(reversed(elem))
+    return result
+
+
+if __name__ == "__main__":  # pragma: no cover
+    # nums = [1, 2, [4.5, "5", ["A", 11]]]
+    nums = [1, [True, 2], 3.3, ["4", 5]]
+    print(flatten_list_recurision(nums))
+    print(flatten_list(nums))
+    print(list(flatten_list_generator(nums)))
