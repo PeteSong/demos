@@ -22,6 +22,7 @@ def binary_search(nums: list[int], target: int, left: int = 0, right: int = None
     """Binary search on sorted list"""
     if nums is None or len(nums) == 0:
         return -1
+
     if right is None:
         right = len(nums) - 1
     while left <= right:
@@ -39,6 +40,7 @@ def binary_search(nums: list[int], target: int, left: int = 0, right: int = None
 def reverse(nums: list[int], p1: int = 0, p2: int = 0) -> None:
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) <= 1:
         return
+
     if p1 <= 0:
         p1 = 0
     if p2 is None or p2 <= 0 or p2 > nums_len - 1:
@@ -55,6 +57,7 @@ def bubble_sort(nums: list[int]) -> list[int]:
     """
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
         return nums
+
     for i in range(nums_len):
         swapped = False
         for j in range(0, nums_len - i - 1):
@@ -73,6 +76,7 @@ def insertion_sort(nums: list[int]) -> list[int]:
     """
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
         return nums
+
     for i in range(1, nums_len):
         val = nums[i]
         j = i - 1
@@ -90,6 +94,7 @@ def selection_sort(nums: list[int]) -> list[int]:
     """
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
         return nums
+
     for i in range(nums_len):
         min_idx = i
         for j in range(i + 1, nums_len):
@@ -108,8 +113,10 @@ def quick_sort(nums: list[int]) -> list[int]:
     """
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
         return nums
+
     if (nums_len := len(nums)) <= 1:
         return nums
+
     pivot = nums[nums_len // 2]
     left = [n for n in nums if n < pivot]
     middle = [n for n in nums if n == pivot]
@@ -125,8 +132,10 @@ NestedList = NLE | list["NestedList"]
 def _is_valid_nested_list(_nums: NestedList) -> bool:
     if isinstance(_nums, NLE_TYPES):
         return True
+
     if isinstance(_nums, list):
         return all(_is_valid_nested_list(_n) for _n in _nums)
+
     return False
 
 
