@@ -39,7 +39,7 @@ class Solution:
                 (m, n + 1),
                 (m, n - 1),
             ]
-            found = any([dfs(*cell, index + 1) for cell in adjacent_cells])
+            found = any(dfs(*cell, index + 1) for cell in adjacent_cells)
             board[m][n] = temp
             return found
 
