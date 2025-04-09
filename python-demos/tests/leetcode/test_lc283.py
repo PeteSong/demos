@@ -3,7 +3,7 @@ import pytest
 from leetcode.lc283 import Solution
 
 
-class SolutionTest:
+class TestSolution:
     test_invalid_data = [
         (None),
         (dict()),
@@ -52,4 +52,10 @@ class SolutionTest:
 
         nums_copy = nums.copy()
         Solution().moveZeroes2(nums_copy)
+        assert expected == nums_copy
+
+    @pytest.mark.parametrize("expected, nums", test_data2)
+    def test_move_zeros_to_head(self, expected, nums):
+        nums_copy = nums.copy()
+        Solution().move_zeros_to_head(nums_copy)
         assert expected == nums_copy
