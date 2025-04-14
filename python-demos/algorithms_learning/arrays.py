@@ -18,7 +18,7 @@ from collections import deque
 from collections.abc import Generator
 
 
-def binary_search(nums: list[int], target: int, left: int = 0, right: int = None) -> int:
+def binary_search(nums: list[int], target: int, left: int = 0, right: int | None = None) -> int:
     """Binary search on sorted list"""
     if nums is None or len(nums) == 0:
         return -1
@@ -41,8 +41,7 @@ def reverse(nums: list[int], p1: int = 0, p2: int = 0) -> None:
     if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) <= 1:
         return
 
-    if p1 <= 0:
-        p1 = 0
+    p1 = max(p1, 0)
     if p2 is None or p2 <= 0 or p2 > nums_len - 1:
         p2 = nums_len - 1
     while p1 < p2:
@@ -184,12 +183,12 @@ def flatten_list(nums: NestedList) -> list[NLE]:
     return result
 
 
-def rotate90(matrix: list[list[int]], clockwise=True) -> None:
+def rotate90(matrix: list[list[int]], clockwise: bool = True) -> None:
     """
     Do not return anything, modify matrix in-place instead.
     """
 
-    def _valid_args(matrix: list[list[int]]) -> bool:
+    def _valid_args() -> bool:
         if matrix is None or not isinstance(matrix, list) or (matrix_len := len(matrix)) == 0:
             return False
         if any(row is None or not isinstance(row, list) or len(row) != matrix_len for row in matrix):
@@ -198,7 +197,7 @@ def rotate90(matrix: list[list[int]], clockwise=True) -> None:
             return False
         return True
 
-    if not _valid_args(matrix):
+    if not _valid_args():
         raise ValueError("Invalid argument")
 
     matrix_len = len(matrix)
@@ -217,15 +216,20 @@ def rotate90(matrix: list[list[int]], clockwise=True) -> None:
                 matrix[i][j], matrix[matrix_len - i - 1][j] = matrix[matrix_len - i - 1][j], matrix[i][j]
 
 
-if __name__ == "__main__":  # pragma: no cover
-    # nums = [1, 2, [4.5, "5", ["A", 11]]]
-    # nums = [1, [True, 2], 3.3, ["4", 5]]
-    # print(flatten_list_recurision(nums))
-    # print(flatten_list(nums))
-    # print(list(flatten_list_generator(nums)))
+def main() -> None:  # pragma: no cover
     matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     print(matrix)
     rotate90(matrix)
     print(matrix)
     rotate90(matrix, False)
     print(matrix)
+
+
+if __name__ == "__main__":  # pragma: no cover
+    # nums = [1, 2, [4.5, "5", ["A", 11]]]
+    # nums = [1, [True, 2], 3.3, ["4", 5]]
+    # print(flatten_list_recurision(nums))
+    # print(flatten_list(nums))
+    # print(list(flatten_list_generator(nums)))
+
+    pass
