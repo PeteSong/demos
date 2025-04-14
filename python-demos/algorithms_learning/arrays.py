@@ -55,9 +55,10 @@ def bubble_sort(nums: list[int]) -> list[int]:
     """
     每次比较相邻两个元素，将较大的元素“冒泡”到数组末尾。
     """
-    if nums is None or not isinstance(nums, list) or (nums_len := len(nums)) == 0:
+    if nums is None or not isinstance(nums, list):
         return nums
 
+    nums_len = len(nums)
     for i in range(nums_len):
         swapped = False
         for j in range(0, nums_len - i - 1):
@@ -183,9 +184,48 @@ def flatten_list(nums: NestedList) -> list[NLE]:
     return result
 
 
+def rotate90(matrix: list[list[int]], clockwise=True) -> None:
+    """
+    Do not return anything, modify matrix in-place instead.
+    """
+
+    def _valid_args(matrix: list[list[int]]) -> bool:
+        if matrix is None or not isinstance(matrix, list) or (matrix_len := len(matrix)) == 0:
+            return False
+        if any(row is None or not isinstance(row, list) or len(row) != matrix_len for row in matrix):
+            return False
+        if any(elem is None or not isinstance(elem, int) for row in matrix for elem in row):
+            return False
+        return True
+
+    if not _valid_args(matrix):
+        raise ValueError("Invalid argument")
+
+    matrix_len = len(matrix)
+    # transpose the matrix
+    for i in range(matrix_len):
+        for j in range(i + 1, matrix_len):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    if clockwise:
+        # reverse each row
+        for i in range(matrix_len):
+            matrix[i].reverse()
+    else:
+        # reverse each column
+        for i in range(matrix_len // 2):
+            for j in range(matrix_len):
+                matrix[i][j], matrix[matrix_len - i - 1][j] = matrix[matrix_len - i - 1][j], matrix[i][j]
+
+
 if __name__ == "__main__":  # pragma: no cover
     # nums = [1, 2, [4.5, "5", ["A", 11]]]
-    nums = [1, [True, 2], 3.3, ["4", 5]]
-    print(flatten_list_recurision(nums))
-    print(flatten_list(nums))
-    print(list(flatten_list_generator(nums)))
+    # nums = [1, [True, 2], 3.3, ["4", 5]]
+    # print(flatten_list_recurision(nums))
+    # print(flatten_list(nums))
+    # print(list(flatten_list_generator(nums)))
+    matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    print(matrix)
+    rotate90(matrix)
+    print(matrix)
+    rotate90(matrix, False)
+    print(matrix)

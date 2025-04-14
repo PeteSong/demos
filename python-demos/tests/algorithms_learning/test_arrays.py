@@ -153,3 +153,31 @@ def test_flatten(expected, input):
     assert expected == arrays.flatten_list_recurision(input)
     assert expected == arrays.flatten_list(input)
     assert expected == list(arrays.flatten_list_generator(input))
+
+
+@pytest.mark.parametrize(
+    "matrix",
+    [
+        (None),
+        ("SSS"),
+        ([]),
+        ([None, None]),
+        (["None", "None"]),
+        ([[], []]),
+        ([[None, None], [None, None]]),
+        ([["None", "None"], ["None", "None"]]),
+    ],
+)
+def test_rotate90_with_invalid_matrix(matrix):
+    with pytest.raises(ValueError):
+        arrays.rotate90(matrix)
+
+
+def test_rotate90():
+    matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    matrix_copy = copy.deepcopy(matrix)
+    expected_roate90 = [[7, 4, 1], [8, 5, 2], [9, 6, 3]]
+    arrays.rotate90(matrix)
+    assert expected_roate90 == matrix
+    arrays.rotate90(matrix, False)
+    assert matrix == matrix_copy
